@@ -80,6 +80,25 @@
 #login-btn:hover {
     cursor: pointer;
 }
+#alert{
+    
+    width: 100vw;
+    color: black;
+    height: 10vh;
+    
+}
+
+#alert-content {
+    position: absolute;
+    width: 100vw;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    background-color: red;
+    color: white;
+}
 
 @media screen and (max-width: 1024px){
     #logo-img {
