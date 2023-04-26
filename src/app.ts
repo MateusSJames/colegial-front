@@ -1,4 +1,5 @@
 import express  from 'express';
+
 import { InitApplication } from './routes/Init/index'
 
 const app = express();
