@@ -81,22 +81,26 @@
     cursor: pointer;
 }
 #alert{
-    
+    position: absolute;
     width: 100vw;
     color: black;
     height: 10vh;
-    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5vh;
 }
 
 #alert-content {
-    position: absolute;
-    width: 100vw;
+    border-radius: 20px;
+    
+    width: 50vw;
     height: 10vh;
     display: flex;
     align-items: center;
     justify-content: center;
     visibility: hidden;
-    background-color: red;
+    background-color: rgb(245, 189, 86);
     color: white;
 }
 
@@ -124,6 +128,13 @@
         height: 10vh;
         margin: 0 auto;
         padding: 10% 20%;
+    }
+}
+
+@media screen and (max-width: 1024px){
+    #alert-content {
+        width: 70vw;
+        height: 10vh;
     }
 }
 
@@ -190,6 +201,12 @@
     #login-btn {
         width: 50vw;
     }
+
+    #alert-content {
+        width: 80vw;
+        height: 10vh;
+        font-size: 70%;
+    }
 }
 
 @media screen and (max-width: 450px){
@@ -208,6 +225,13 @@
 
     #login-btn {
         width: 50vw;
+    }
+
+    #alert-content {
+        /* width: 90vw;
+        height: 10vh; */
+        font-size: 60%;
+        padding: 3vmax;
     }
 }
 
