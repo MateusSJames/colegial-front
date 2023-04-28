@@ -17,7 +17,7 @@ button?.addEventListener('click', async (e) => {
         401: 'Você não está liberado para usar esse sistema',
         500: 'Erro interno no Servidor'
     }
-    if(responseLogin.status != 200) {
+    if(responseLogin.status != 201) {
         if(alertContent != null) {
             alertContent.style.visibility = "visible";
             alertContent.innerHTML = `
@@ -28,5 +28,8 @@ button?.addEventListener('click', async (e) => {
             }, 3000);
             
         }
+    } else {
+        console.log(responseLogin)
+        // window.location.href = '/home';
     }
 })

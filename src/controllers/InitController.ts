@@ -3,7 +3,8 @@ import path from 'path';
 
 class InitController {
    async openScreen(req: Request, res: Response) {
-        const filePath = path.resolve('./src/public/views/index.html')
+        const screen = req.params.screen;
+        const filePath = path.resolve(`./src/public/views/${screen}.html`)
         res.sendFile(filePath);
    }
 }
