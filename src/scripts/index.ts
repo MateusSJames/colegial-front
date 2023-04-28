@@ -29,7 +29,10 @@ button?.addEventListener('click', async (e) => {
             
         }
     } else {
-        console.log(responseLogin)
-        // window.location.href = '/home';
+        const dates: any = responseLogin.message;
+        alert('SEJA BEM-VINDO')
+        localStorage.setItem('token', dates.token)
+        window.location.href = '/home';
+        
     }
 })

@@ -7,6 +7,6 @@ const router = Router();
 const initController = new InitController();
 
 router.get('/', (req: Request, res: Response) => res.status(200).json({message: 'Funcionando!'}));
-router.get('/:screen', verifyToken, initController.openScreen);
+router.get('/:screen', initController.openScreen);
 
 export { router as InitApplication }

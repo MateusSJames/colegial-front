@@ -1,0 +1,1 @@
+(()=>{"use strict";const e=document.getElementById("parametros");null==e||e.addEventListener("click",(e=>{e.preventDefault(),alert("Hello World")}))})();
