@@ -1,8 +1,6 @@
-import { SettingsService } from '../services/settings_service'
-
 const buttonParam = document.getElementById('parametros')
 const buttonPedido = document.getElementById('pedidos')
-//FALTA DEIXAR DINAMICO A BASE DO FORNECEDOR
+
 buttonParam?.addEventListener('click', (event) => {
     event.preventDefault();
     
