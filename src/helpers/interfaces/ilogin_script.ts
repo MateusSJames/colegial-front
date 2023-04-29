@@ -1,3 +1,3 @@
 interface IloginScript {
-    sendLogin(credentials: Object): Promise<{status: number, message: string}>;
+    sendLogin<T>(credentials: Object): Promise<T>;
 }

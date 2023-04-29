@@ -15,7 +15,7 @@ describe('InitApplication', () => {
             email: 'johnDoe@gmail.com',
             senha: '123'
         };
-        const result = await loginService.sendLogin(credentials);
+        const result:any = await loginService.sendLogin(credentials);
         expect(result.status).toEqual(404);
     })
 
@@ -25,7 +25,7 @@ describe('InitApplication', () => {
             email: 'teste@gmail.com',
             senha: '1'
         };
-        const result = await loginService.sendLogin(credentials);
+        const result:any = await loginService.sendLogin(credentials);
         expect(result.status).toEqual(201);
     })
 
@@ -35,7 +35,7 @@ describe('InitApplication', () => {
             email: 'alfredo@gmail.com',
             senha: '123'
         };
-        const result = await loginService.sendLogin(credentials);
+        const result:any = await loginService.sendLogin(credentials);
         expect(result.status).toEqual(401);
     })
 })

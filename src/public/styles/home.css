@@ -20,7 +20,6 @@ header {
 }
 
 #menu {
-    border: 1px solid white;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -55,4 +54,57 @@ header {
     width: 20vw;
     height: 85vh;
     background-color: white;
+}
+
+#status-page {
+    background-color: white;
+    font-weight: bold;
+    border: 0;
+}
+
+#status-page:hover {
+    cursor: pointer;
+}
+
+@media screen and (max-width: 720px) {
+
+    header {
+        padding-top: 5vmax;
+    }
+
+    #pedidos {
+        background-color: orange;
+        border: 0;
+        color: white;
+        font-weight: bold;
+        font-size: 2vmax;
+    }
+    
+    #parametros {
+        background-color: orange;
+        border: 0;
+        color: white;
+        font-weight: bold;
+        font-size: 2vmax;
+    }
+}
+
+@media screen and (max-width: 430px) {
+
+    header {
+        padding-left: 5vmax;
+        padding-right: 5vmax;
+    }
+
+    #filters {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 320px) {
+
+    header {
+        padding-left: 5vmax;
+        padding-right: 5vmax;
+    }
 }

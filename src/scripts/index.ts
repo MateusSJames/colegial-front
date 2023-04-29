@@ -11,7 +11,7 @@ button?.addEventListener('click', async (e) => {
         email: email,
         senha: senha
     }
-    const responseLogin = await loginService.sendLogin(credentials);
+    const responseLogin:any = await loginService.sendLogin(credentials);
     const responseStatus: { [key: number]: string } = {
         404: 'Dados incorretos, verifique e tente novamente',
         401: 'Você não está liberado para usar esse sistema',
