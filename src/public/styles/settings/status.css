@@ -39,4 +39,43 @@ header {
     border: 1px solid black;
     width: 65vw;
     height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 2vmax;
+}
+
+#row-status {
+    margin: 0 auto;
+    width: 100%;
+    border: 1px solid green;
+    display: flex;
+    justify-content: space-between;
+    padding: 2vmax;
+}
+
+#arrow-up {
+    font-size: 1.7vmax;
+}
+
+button[id^="drop-up"] {
+    background-color: white;
+    border: 0;
+}
+
+#arrow-down {
+    font-size: 1.7vmax;
+}
+
+button[id^="drop-down"] {
+    background-color: white;
+    border: 0;
+}
+
+button[id^="drop-down"]:hover{
+    cursor: pointer;
+}
+
+button[id^="drop-up"]:hover{
+    cursor: pointer;
 }
