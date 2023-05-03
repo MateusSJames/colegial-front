@@ -211,10 +211,24 @@ button[id^="drop-up"]:hover{
 
 button[id^="btn-check"]{
     visibility: hidden;
+    background-color: rgb(221, 219, 219);
+    border: 0;
 }
 
 button[id^="btn-cancel"]{
     visibility: hidden;
+    background-color: rgb(221, 219, 219);
+    border: 0;
+}
+
+button[id^="btn-delete"]{
+    background-color: rgb(221, 219, 219);
+    border: 0;
+}
+
+button[id^="btn-edit-status"]{
+    background-color: rgb(221, 219, 219);
+    border: 0;
 }
 
 @media screen and (max-width: 700px) {
