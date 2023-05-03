@@ -85,6 +85,7 @@ function updateList(lista: ListItem[]) {
             const buttonDown = document.getElementById(`drop-down-${e.id}`);
             const buttonUp = document.getElementById(`drop-up-${e.id}`);
             const buttonEdit = document.getElementById(`btn-edit-status-${e.id}`);
+            const buttonDelete = document.getElementById(`btn-delete-${e.id}`)
             const labelStatusId = document.getElementById(`label-status-${e.id}`);
             const buttonSave = document.getElementById(`btn-check-${e.id}`);
             const buttonCancel = document.getElementById(`btn-cancel-${e.id}`);
@@ -102,6 +103,9 @@ function updateList(lista: ListItem[]) {
             input.value = labelStatusId?.textContent as string;
             buttonEdit?.addEventListener('click', () => {
                 buttonEdit.style.visibility = "hidden";
+                if(buttonDelete) {
+                    buttonDelete.style.visibility = "hidden";
+                }
                 labelStatusId?.parentNode?.replaceChild(input, labelStatusId);
                 if(buttonSave != null) {
                     buttonSave.style.visibility = "visible";
@@ -153,6 +157,9 @@ function updateList(lista: ListItem[]) {
                         const h4= document.createElement('h4');
                         h4.id = `label-status-${e.id}`
                         buttonEdit.style.visibility = "visible";
+                        if(buttonDelete) {
+                            buttonDelete.style.visibility = "visible";
+                        }
                         buttonCancel.style.visibility = "hidden";
                         if(buttonSave != null) {
                             buttonSave.style.visibility = "hidden";
@@ -217,6 +224,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const buttonDown = document.getElementById(`drop-down-${e.id}`);
             const buttonUp = document.getElementById(`drop-up-${e.id}`);
             const buttonEdit = document.getElementById(`btn-edit-status-${e.id}`);
+            const buttonDelete = document.getElementById(`btn-delete-${e.id}`)
             const labelStatusId = document.getElementById(`label-status-${e.id}`);
             const buttonSave = document.getElementById(`btn-check-${e.id}`);
             const buttonCancel = document.getElementById(`btn-cancel-${e.id}`);
@@ -232,6 +240,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             input.value = labelStatusId?.textContent as string;
             buttonEdit?.addEventListener('click', () => {
                 buttonEdit.style.visibility = "hidden";
+                if(buttonDelete) {
+                    buttonDelete.style.visibility = "hidden";
+                }
                 labelStatusId?.parentNode?.replaceChild(input, labelStatusId);
                 if(buttonSave != null) {
                     buttonSave.style.visibility = "visible";
@@ -283,6 +294,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                         const h4= document.createElement('h4');
                         h4.id = `label-status-${e.id}`
                         buttonEdit.style.visibility = "visible";
+                        if(buttonDelete) {
+                            buttonDelete.style.visibility = "visible";
+                        }
                         buttonCancel.style.visibility = "hidden";
                         if(buttonSave != null) {
                             buttonSave.style.visibility = "hidden";
