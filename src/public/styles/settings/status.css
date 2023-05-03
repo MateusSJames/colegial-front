@@ -13,6 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 header {
@@ -38,17 +39,22 @@ header {
 #setting-status {
     border: 1px solid black;
     width: 65vw;
-    height: 70vh;
+    height: 50vh;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: start;
     padding: 2vmax;
+    overflow-y: auto;
 }
 
 #row-status {
     margin: 0 auto;
+    margin-bottom: 1vmax;
     width: 100%;
-    border: 1px solid green;
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: rgb(221, 219, 219);
     display: flex;
     justify-content: space-between;
     padding: 2vmax;
@@ -59,7 +65,7 @@ header {
 }
 
 button[id^="drop-up"] {
-    background-color: white;
+    background-color: rgb(221, 219, 219);
     border: 0;
 }
 
@@ -68,7 +74,7 @@ button[id^="drop-up"] {
 }
 
 button[id^="drop-down"] {
-    background-color: white;
+    background-color: rgb(221, 219, 219);
     border: 0;
 }
 
@@ -78,4 +84,110 @@ button[id^="drop-down"]:hover{
 
 button[id^="drop-up"]:hover{
     cursor: pointer;
+}
+
+#btn-submit {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 1vmax 5vmax;
+    /* display: flex;
+    align-items: center; */
+}
+
+#btn-update-status:hover {
+    cursor: pointer;
+}
+
+#btn-update-status {
+    background-color: orange;
+    color: white;
+    height: 7vh;
+    width: 17vw;
+    font-size: 1.2vmax;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+#popup {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    position: fixed;
+    top: 0;
+    opacity: 100%;
+    /* display: none; */
+}
+
+#pop-body {
+    width: 50vw;
+    height: 50vh;
+    background-color: white;
+    opacity: 100%;
+}
+
+#alert{
+    position: absolute;
+    width: 100vw;
+    color: black;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5vh;
+}
+
+#alert-content {
+    border-radius: 20px;
+    width: 50vw;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    background-color: rgb(126, 221, 49);
+    color: white;
+}
+
+#input-status {
+    /* width: 100vw; */
+    padding: 3vmax;
+}
+
+#input-novo-status {
+    width: 50vw;
+    height: 8vh;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+#btn-post-status:hover {
+    cursor: pointer;
+}
+
+#btn-post-status {
+    background-color: orange;
+    color: white;
+    height: 7vh;
+    width: 10vw;
+    font-size: 1.2vmax;
+    font-weight: bold;
+    border-radius: 20px;
+    margin-left: 5vw;
+}
+
+@media screen and (max-width: 700px) {
+    #alert-content {
+        width: 80vw;
+        height: 10vh;
+        font-size: 70%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #btn-update-status {
+        width: 30vw;
+        font-size: 1.5vmax;
+    }
 }

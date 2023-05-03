@@ -1,3 +1,6 @@
+import axios from 'axios';
+import http from 'http';
+
 import { LoginService } from '../services/login_service';
 
 const button = document.getElementById('login-btn')
@@ -30,9 +33,14 @@ button?.addEventListener('click', async (e) => {
         }
     } else {
         const dates: any = responseLogin.message;
-        alert('SEJA BEM-VINDO')
-        localStorage.setItem('token', dates.token)
-        window.location.href = '/home';
         
+        localStorage.setItem('token', dates.token)
+        axios.get('/home', {
+            headers: {
+              'Authorization': `${dates.token}`
+            },
+        }).then((response) => {
+            console.log(response.data)
+        })
     }
 })

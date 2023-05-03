@@ -6,8 +6,7 @@ const verifyToken = (req: any, res: Response, next: NextFunction) => {
     if(page === 'index') {
         next();
     } else {
-        const token = localStorage.getItem('token');
-        console.log(token)
+        const token = req.headers.authorization
         if (!token) return res.status(401).json({ auth: false, message: 'fornecedor nao liberado' });
 
         jwt.verify(token as string, 'PlusPedidos1411', (err: any, decoded: any) => {

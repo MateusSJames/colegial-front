@@ -5,7 +5,13 @@ class InitController {
    async openScreen(req: Request, res: Response) {
         const screen = req.params.screen;
         const filePath = path.resolve(`./src/public/views/${screen}.html`)
-        res.sendFile(filePath);
+        if(screen == 'status') {
+            const filePath = path.resolve(`./src/public/views/settings/${screen}.html`)        
+            res.sendFile(filePath);
+         } else {
+            res.sendFile(filePath);
+         }
+         
    }
 }
 
