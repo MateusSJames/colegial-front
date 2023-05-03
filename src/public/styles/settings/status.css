@@ -177,6 +177,46 @@ button[id^="drop-up"]:hover{
     margin-left: 5vw;
 }
 
+#button-delete {
+    height: 1.5vmax;
+}
+
+#button-delete:hover {
+    cursor: pointer;
+}
+
+#button-edit {
+    height: 1.5vmax;
+}
+
+#button-edit:hover {
+    cursor: pointer;
+}
+
+#button-check {
+    height: 1.5vmax;
+}
+
+#button-check:hover {
+    cursor: pointer;
+}
+
+#button-cancel {
+    height: 1.5vmax;
+}
+
+#button-cancel:hover {
+    cursor: pointer;
+}
+
+button[id^="btn-check"]{
+    visibility: hidden;
+}
+
+button[id^="btn-cancel"]{
+    visibility: hidden;
+}
+
 @media screen and (max-width: 700px) {
     #alert-content {
         width: 80vw;

@@ -2,6 +2,7 @@ import axios from 'axios';
 
 interface StatusPayLoad {
     id: number;
+    nome: string;
     posicao: number;
 }
 
