@@ -25,4 +25,10 @@ describe('SettingsServices', () => {
         const result: any = await settingsService.postStatus('pluspedidos', request);
         expect(result.status).toEqual(201)
     })
+
+    it('should delete positions with status', async () => {
+        const settingsService = new SettingsService();
+        const result: any = await settingsService.deleteStatus('pluspedidos', '18');
+        expect(result.status).toEqual(200)
+    })
 })

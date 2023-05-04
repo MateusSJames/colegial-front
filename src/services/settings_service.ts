@@ -44,6 +44,16 @@ class SettingsService implements ISettingsScript {
             return {status: error.response.status, message: error.response.statusText} as T;
         }
     }
+
+    async deleteStatus<T>(base: T, id: T): Promise<T> {
+        try {
+            const statusRequest = await axios.delete(`http://localhost:7000/status/delete/${base}/${id}`);
+            const statusResponse = {status: statusRequest.status, response: statusRequest.data} as T;
+            return statusResponse;
+        } catch (error: any) {
+            return {status: error.response.status, message: error.response.statusText} as T;
+        }
+    }
 }
 
 export { SettingsService }

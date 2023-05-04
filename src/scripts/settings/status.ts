@@ -168,6 +168,56 @@ function updateList(lista: ListItem[]) {
                     })
                 }
             })
+            buttonDelete?.addEventListener('click', async () => {
+                const settingsService = new SettingsService();
+                try {
+                    const indexRemove = lista.findIndex(item => item.id === e.id)
+                    if(indexRemove != -1) {
+                        const alertContent = document.getElementById('alert-content')
+                        if(alertContent != null) {
+                            alertContent.style.visibility = "visible";
+                            alertContent.style.backgroundColor = 'orange';
+                            alertContent.innerHTML = `
+                                    <h3>Deletando status ...</h3>
+                                `
+                            // setTimeout(() => {
+                            //     alertContent.style.visibility = "hidden";
+                            // }, 3000);
+                            // location.reload()
+                        }
+                        await settingsService.deleteStatus('pluspedidos', lista[indexRemove].id.toString());
+                        lista.splice(indexRemove, 1);
+                        for (let i = indexRemove; i < lista.length; i ++) {
+                            lista[i].posicao = lista[i].posicao - 1;
+                        }
+                        for(let i = 0; i < lista.length; i ++) {
+                            const element: ListItem = lista[i];
+                            await settingsService.setStatusPosition('pluspedidos', element);
+                        }
+                        if(alertContent != null) {
+                            alertContent.style.visibility = "visible";
+                            alertContent.style.backgroundColor = 'green';
+                            alertContent.innerHTML = `
+                                    <h3>Status deletado com sucesso</h3>
+                                `
+                            location.reload()
+                        }
+                    }
+                } catch {
+                    const alertContent = document.getElementById('alert-content')
+                    if(alertContent != null) {
+                        alertContent.style.visibility = "visible";
+                        alertContent.style.backgroundColor = 'red';
+                        alertContent.innerHTML = `
+                                <h3>Erro ao atualizar posições</h3>
+                            `
+                        setTimeout(() => {
+                            alertContent.style.visibility = "hidden";
+                        }, 3000);
+                    }
+                }
+                
+            })
         })
     }
 }
@@ -304,6 +354,56 @@ document.addEventListener('DOMContentLoaded', async () => {
                         labelStatusId?.parentNode?.replaceChild(h4, input);
                     })
                 }
+            })
+            buttonDelete?.addEventListener('click', async () => {
+                const settingsService = new SettingsService();
+                try {
+                    const indexRemove = statusValues.findIndex(item => item.id === e.id)
+                    if(indexRemove != -1) {
+                        const alertContent = document.getElementById('alert-content')
+                        if(alertContent != null) {
+                            alertContent.style.visibility = "visible";
+                            alertContent.style.backgroundColor = 'orange';
+                            alertContent.innerHTML = `
+                                    <h3>Deletando status ...</h3>
+                                `
+                            // setTimeout(() => {
+                            //     alertContent.style.visibility = "hidden";
+                            // }, 3000);
+                            // location.reload()
+                        }
+                        await settingsService.deleteStatus('pluspedidos', statusValues[indexRemove].id.toString());
+                        statusValues.splice(indexRemove, 1);
+                        for (let i = indexRemove; i < statusValues.length; i ++) {
+                            statusValues[i].posicao = statusValues[i].posicao - 1;
+                        }
+                        for(let i = 0; i < statusValues.length; i ++) {
+                            const element: ListItem = statusValues[i];
+                            await settingsService.setStatusPosition('pluspedidos', element);
+                        }
+                        if(alertContent != null) {
+                            alertContent.style.visibility = "visible";
+                            alertContent.style.backgroundColor = 'green';
+                            alertContent.innerHTML = `
+                                    <h3>Status deletado com sucesso</h3>
+                                `
+                            location.reload()
+                        }
+                    }
+                } catch {
+                    const alertContent = document.getElementById('alert-content')
+                    if(alertContent != null) {
+                        alertContent.style.visibility = "visible";
+                        alertContent.style.backgroundColor = 'red';
+                        alertContent.innerHTML = `
+                                <h3>Erro ao atualizar posições</h3>
+                            `
+                        setTimeout(() => {
+                            alertContent.style.visibility = "hidden";
+                        }, 3000);
+                    }
+                }
+                
             })
         })
     }
