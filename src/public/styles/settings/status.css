@@ -209,9 +209,40 @@ button[id^="drop-up"]:hover{
     cursor: pointer;
 }
 
+#pop-up-body {
+    width: 12vw;
+    margin-top: 1vmax;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#finish-delete {
+    color: green;
+    font-weight: bold;
+    background-color: white;
+    border: 0;
+}
+
+#finish-delete:hover {
+    cursor: pointer;
+}
+
+#cancel-delete:hover {
+    cursor: pointer;
+}
+
+#cancel-delete {
+    color: red;
+    font-weight: bold;
+    background-color: white;
+    border: 0;
+}
+
 button[id^="btn-check"]{
     visibility: hidden;
     background-color: rgb(221, 219, 219);
+    margin-right: 1vmax;
     border: 0;
 }
 
