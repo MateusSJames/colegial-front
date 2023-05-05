@@ -168,6 +168,7 @@ function updateList(lista: ListItem[]) {
                     })
                 }
             })
+            
             buttonDelete?.addEventListener('click', async () => {
                 const settingsService = new SettingsService();
                 try {
@@ -176,31 +177,105 @@ function updateList(lista: ListItem[]) {
                         const alertContent = document.getElementById('alert-content')
                         if(alertContent != null) {
                             alertContent.style.visibility = "visible";
-                            alertContent.style.backgroundColor = 'orange';
+                            alertContent.style.backgroundColor = 'white';
+                            alertContent.style.color = 'black';
+                            alertContent.style.border = '1px solid black';
+                            alertContent.style.flexDirection = 'column';
                             alertContent.innerHTML = `
+                                <div id="pop-up-content">
+                                    <h4>Gostaria de excluir esse status ?</h4>
+                                </div>
+                                <div id="pop-up-body">
+                                    <button id="finish-delete">Sim</button>
+                                    <button id="cancel-delete">Não</button>
+                                </div>
+                            `;
+                            const finishDelete = document.getElementById('finish-delete');
+                            const cancelDelete = document.getElementById('cancel-delete');
+                            finishDelete?.addEventListener('click', async () => {
+                                alertContent.innerHTML = `
                                     <h3>Deletando status ...</h3>
                                 `
-                            // setTimeout(() => {
-                            //     alertContent.style.visibility = "hidden";
-                            // }, 3000);
-                            // location.reload()
-                        }
-                        await settingsService.deleteStatus('pluspedidos', lista[indexRemove].id.toString());
-                        lista.splice(indexRemove, 1);
-                        for (let i = indexRemove; i < lista.length; i ++) {
-                            lista[i].posicao = lista[i].posicao - 1;
-                        }
-                        for(let i = 0; i < lista.length; i ++) {
-                            const element: ListItem = lista[i];
-                            await settingsService.setStatusPosition('pluspedidos', element);
-                        }
-                        if(alertContent != null) {
-                            alertContent.style.visibility = "visible";
-                            alertContent.style.backgroundColor = 'green';
-                            alertContent.innerHTML = `
-                                    <h3>Status deletado com sucesso</h3>
-                                `
-                            location.reload()
+                                alertContent.style.backgroundColor = 'orange';
+                                alertContent.style.color = 'white';
+                                alertContent.style.border = '0';
+                                const response: any = await settingsService.deleteStatus('pluspedidos', lista[indexRemove].id.toString());
+                                if(response.status == 200) {
+                                    lista.splice(indexRemove, 1);
+                                    for (let i = indexRemove; i < lista.length; i ++) {
+                                        lista[i].posicao = lista[i].posicao - 1;
+                                    }
+                                    for(let i = 0; i < lista.length; i ++) {
+                                        const element: ListItem = lista[i];
+                                        await settingsService.setStatusPosition('pluspedidos', element);
+                                    }
+                                    if(alertContent != null) {
+                                        alertContent.style.visibility = "visible";
+                                        alertContent.style.backgroundColor = 'green';
+                                        alertContent.innerHTML = `
+                                                <h3>Status deletado com sucesso</h3>
+                                            `
+                                        location.reload()
+                                    }
+                                } else {
+                                    alertContent.style.visibility = "visible";
+                                    alertContent.style.backgroundColor = 'white';
+                                    alertContent.style.color = 'black';
+                                    alertContent.style.border = '1px solid black';
+                                    alertContent.style.flexDirection = 'column';
+                                    alertContent.innerHTML = `
+                                        <div id="pop-up-content">
+                                            <h4>Esse status está em uso, gostaria de inativar ?</h4>
+                                        </div>
+                                        <div id="pop-up-body">
+                                            <button id="finish-delete">Sim</button>
+                                            <button id="cancel-delete">Não</button>
+                                        </div>
+                                    `;
+                                    const finishDelete = document.getElementById('finish-delete');
+                                    const cancelDelete = document.getElementById('cancel-delete');
+                                    
+                                    finishDelete?.addEventListener('click', async () => {
+                                        alertContent.innerHTML = `
+                                            <h3>Inativando status ...</h3>
+                                        `
+                                        alertContent.style.backgroundColor = 'orange';
+                                        alertContent.style.color = 'white';
+                                        alertContent.style.border = '0';
+                                        
+                                        for (let i = indexRemove; i < lista.length; i ++) {
+                                            lista[i].posicao = lista[i].posicao - 1;
+                                        }
+                                        for(let i = 0; i < lista.length; i ++) {
+                                            const element: ListItem = lista[i];
+                                            await settingsService.setStatusPosition('pluspedidos', element);
+                                        }
+
+                                        await settingsService.setStatusPosition('pluspedidos', {
+                                            id: e.id,
+                                            nome: e.nome,
+                                            posicao: -1,
+                                        });
+                                        
+                                        if(alertContent != null) {
+                                            alertContent.style.visibility = "visible";
+                                            alertContent.style.backgroundColor = 'green';
+                                            alertContent.innerHTML = `
+                                                    <h3>Status inativado com sucesso</h3>
+                                                `
+                                            location.reload()
+                                        }
+                                    })
+                                    
+                                    cancelDelete?.addEventListener('click', () => {
+                                        alertContent.style.visibility = "hidden";
+                                    })
+                                }
+                                
+                            })
+                            cancelDelete?.addEventListener('click', () => {
+                                alertContent.style.visibility = "hidden";
+                            })
                         }
                     }
                 } catch {
@@ -428,6 +503,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                                         alertContent.style.backgroundColor = 'orange';
                                         alertContent.style.color = 'white';
                                         alertContent.style.border = '0';
+                                        
+                                        for (let i = indexRemove; i < statusValues.length; i ++) {
+                                            statusValues[i].posicao = statusValues[i].posicao - 1;
+                                        }
+                                        for(let i = 0; i < statusValues.length; i ++) {
+                                            const element: ListItem = statusValues[i];
+                                            await settingsService.setStatusPosition('pluspedidos', element);
+                                        }
                                         await settingsService.setStatusPosition('pluspedidos', {
                                             id: e.id,
                                             nome: e.nome,
@@ -571,4 +654,85 @@ buttonPostStatus?.addEventListener('click', async (e) => {
         }
     }
     
+})
+
+const statusInactive = document.getElementById('status-trash')
+statusInactive?.addEventListener('click', async () => {
+    const settingsService = new SettingsService();
+    const statusResponse: any = await settingsService.getInactiveStatusList('pluspedidos');
+    const statusValues: ListItem[] = statusResponse.response
+    let labelsStatus: string = '';
+    if (statusValues.length > 0) {
+        statusValues.map(
+            (e: ListItem) => {
+                const buttonSaveId = `btn-restore-${e.id}`;
+                const labelStatusId = `label-status-${e.id}`;
+    
+                labelsStatus += `
+                <div id="row-status">
+                    <h4 id="${labelStatusId}">${e.nome}</h4>
+                    <div id="buttons-arrow">
+                        <button id="${buttonSaveId}">
+                            <img src="../../assets/historia.png" alt="Logo" id="button-restore">
+                        </button>
+                    </div>
+                </div> \n
+            `;
+        });
+    }
+
+    const statusField = document.getElementById('setting-status')    
+
+    if (statusField) {
+        statusField.innerHTML = labelsStatus;
+        statusValues.map((e) => {
+            const buttonRestore = document.getElementById(`btn-restore-${e.id}`)
+            buttonRestore?.addEventListener('click', () => {
+                const alertContent = document.getElementById('alert-content')
+                if(alertContent != null) {
+                    alertContent.style.visibility = "visible";
+                    alertContent.style.backgroundColor = 'white';
+                    alertContent.style.color = 'black';
+                    alertContent.style.border = '1px solid black';
+                    alertContent.style.flexDirection = 'column';
+                    alertContent.innerHTML = `
+                        <div id="pop-up-content">
+                            <h4>Gostaria de restaurar esse status ?</h4>
+                        </div>
+                        <div id="pop-up-body">
+                            <button id="finish-delete">Sim</button>
+                            <button id="cancel-delete">Não</button>
+                        </div>
+                    `;
+                    const finishDelete = document.getElementById('finish-delete');
+                    const cancelDelete = document.getElementById('cancel-delete');
+                                                
+                    finishDelete?.addEventListener('click', async () => {
+                        alertContent.innerHTML = `
+                            <h3>Restaurando status ...</h3>
+                        `
+                        alertContent.style.backgroundColor = 'orange';
+                        alertContent.style.color = 'white';
+                        alertContent.style.border = '0';
+                        await settingsService.setActiveStatus('pluspedidos', e.id.toString());
+                    
+                        if(alertContent != null) {
+                            alertContent.style.visibility = "visible";
+                            alertContent.style.backgroundColor = 'green';
+                            alertContent.innerHTML = `
+                                <h3>Status restaurado com sucesso</h3>
+                            `
+                            location.reload()
+                        }
+                    })
+                                        
+                    cancelDelete?.addEventListener('click', () => {
+                        alertContent.style.visibility = "hidden";
+                    })
+                }
+            })
+        })
+        
+        
+    }
 })

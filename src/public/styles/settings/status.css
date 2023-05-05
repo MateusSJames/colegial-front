@@ -209,6 +209,14 @@ button[id^="drop-up"]:hover{
     cursor: pointer;
 }
 
+#button-restore {
+    height: 1.5vmax;
+}
+
+#button-restore:hover {
+    cursor: pointer;
+}
+
 #pop-up-body {
     width: 12vw;
     margin-top: 1vmax;
@@ -239,6 +247,22 @@ button[id^="drop-up"]:hover{
     border: 0;
 }
 
+#trash {
+    width: 65%;
+    padding-bottom: 2vmax;
+    display: flex;
+    align-items: start;
+}
+
+#status-trash {
+    color: rgba(223, 94, 19, 0.863);
+    font-weight: bold;
+}
+
+#status-trash:hover {
+    cursor: pointer;
+}
+
 button[id^="btn-check"]{
     visibility: hidden;
     background-color: rgb(221, 219, 219);
@@ -258,6 +282,11 @@ button[id^="btn-delete"]{
 }
 
 button[id^="btn-edit-status"]{
+    background-color: rgb(221, 219, 219);
+    border: 0;
+}
+
+button[id^="btn-restore"]{
     background-color: rgb(221, 219, 219);
     border: 0;
 }

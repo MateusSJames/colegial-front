@@ -31,4 +31,16 @@ describe('SettingsServices', () => {
         const result: any = await settingsService.deleteStatus('pluspedidos', '18');
         expect(result.status).toEqual(200)
     })
+
+    it('should return inactive status', async () => {
+        const settingsService = new SettingsService();
+        const result: any = await settingsService.getInactiveStatusList('pluspedidos');
+        expect(result.status).toEqual(200)
+    })
+
+    it('should active status', async () => {
+        const settingsService = new SettingsService();
+        const result: any = await settingsService.setActiveStatus('pluspedidos', '1');
+        expect(result.status).toEqual(200)
+    })
 })

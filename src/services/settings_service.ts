@@ -11,6 +11,28 @@ interface PostStatusPayLoad {
 }
 
 class SettingsService implements ISettingsScript {
+    async setActiveStatus<T>(param: T, id: T): Promise<T> {
+        try {
+            const statusRequest = await axios.put(`http://localhost:7000/status/active/${param}/${id}`);
+            const statusResponse = {status: statusRequest.status, response: statusRequest.data} as T;
+            return statusResponse;
+        } catch (error: any) {
+            return {status: error.response.status, message: error.response.statusText} as T;
+        }
+    }
+    async getInactiveStatusList<T>(param: T): Promise<T> {
+        try {
+            const statusRequest = await axios.get(`http://localhost:7000/status/inactive/${param}`);
+            let response: Array<T> = [];
+            statusRequest.data.map((e: any) => {
+                response.push(e);
+            })
+            const statusResponse = {status: statusRequest.status, response: response} as T;
+            return statusResponse;
+        } catch (error: any) {
+            return {status: error.response.status, message: error.response.statusText} as T;
+        }
+    }
     async getStatusList<T>(param: T): Promise<T> {
         try {
             const statusRequest = await axios.get(`http://localhost:7000/status/list/${param}`);
