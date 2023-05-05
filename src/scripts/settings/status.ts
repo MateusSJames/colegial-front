@@ -658,6 +658,7 @@ buttonPostStatus?.addEventListener('click', async (e) => {
 
 const statusInactive = document.getElementById('status-trash')
 statusInactive?.addEventListener('click', async () => {
+    statusInactive.style.visibility = "hidden";
     const settingsService = new SettingsService();
     const statusResponse: any = await settingsService.getInactiveStatusList('pluspedidos');
     const statusValues: ListItem[] = statusResponse.response
@@ -685,54 +686,62 @@ statusInactive?.addEventListener('click', async () => {
 
     if (statusField) {
         statusField.innerHTML = labelsStatus;
-        statusValues.map((e) => {
-            const buttonRestore = document.getElementById(`btn-restore-${e.id}`)
-            buttonRestore?.addEventListener('click', () => {
-                const alertContent = document.getElementById('alert-content')
-                if(alertContent != null) {
-                    alertContent.style.visibility = "visible";
-                    alertContent.style.backgroundColor = 'white';
-                    alertContent.style.color = 'black';
-                    alertContent.style.border = '1px solid black';
-                    alertContent.style.flexDirection = 'column';
-                    alertContent.innerHTML = `
-                        <div id="pop-up-content">
-                            <h4>Gostaria de restaurar esse status ?</h4>
-                        </div>
-                        <div id="pop-up-body">
-                            <button id="finish-delete">Sim</button>
-                            <button id="cancel-delete">Não</button>
-                        </div>
-                    `;
-                    const finishDelete = document.getElementById('finish-delete');
-                    const cancelDelete = document.getElementById('cancel-delete');
-                                                
-                    finishDelete?.addEventListener('click', async () => {
+        if(statusValues.length > 0) {
+            statusValues.map((e) => {
+                const buttonRestore = document.getElementById(`btn-restore-${e.id}`)
+                buttonRestore?.addEventListener('click', () => {
+                    const alertContent = document.getElementById('alert-content')
+                    if(alertContent != null) {
+                        alertContent.style.visibility = "visible";
+                        alertContent.style.backgroundColor = 'white';
+                        alertContent.style.color = 'black';
+                        alertContent.style.border = '1px solid black';
+                        alertContent.style.flexDirection = 'column';
                         alertContent.innerHTML = `
-                            <h3>Restaurando status ...</h3>
-                        `
-                        alertContent.style.backgroundColor = 'orange';
-                        alertContent.style.color = 'white';
-                        alertContent.style.border = '0';
-                        await settingsService.setActiveStatus('pluspedidos', e.id.toString());
-                    
-                        if(alertContent != null) {
-                            alertContent.style.visibility = "visible";
-                            alertContent.style.backgroundColor = 'green';
+                            <div id="pop-up-content">
+                                <h4>Gostaria de restaurar esse status ?</h4>
+                            </div>
+                            <div id="pop-up-body">
+                                <button id="finish-delete">Sim</button>
+                                <button id="cancel-delete">Não</button>
+                            </div>
+                        `;
+                        const finishDelete = document.getElementById('finish-delete');
+                        const cancelDelete = document.getElementById('cancel-delete');
+                                                    
+                        finishDelete?.addEventListener('click', async () => {
                             alertContent.innerHTML = `
-                                <h3>Status restaurado com sucesso</h3>
+                                <h3>Restaurando status ...</h3>
                             `
-                            location.reload()
-                        }
-                    })
-                                        
-                    cancelDelete?.addEventListener('click', () => {
-                        alertContent.style.visibility = "hidden";
-                    })
-                }
+                            alertContent.style.backgroundColor = 'orange';
+                            alertContent.style.color = 'white';
+                            alertContent.style.border = '0';
+                            await settingsService.setActiveStatus('pluspedidos', e.id.toString());
+                        
+                            if(alertContent != null) {
+                                alertContent.style.visibility = "visible";
+                                alertContent.style.backgroundColor = 'green';
+                                alertContent.innerHTML = `
+                                    <h3>Status restaurado com sucesso</h3>
+                                `
+                                location.reload()
+                            }
+                        })
+                                            
+                        cancelDelete?.addEventListener('click', () => {
+                            alertContent.style.visibility = "hidden";
+                        })
+                    }
+                })
             })
-        })
-        
-        
+        } else {
+            labelsStatus = `
+                <div id="alert-empty">
+                    <h4>Você não possui status inativos</h4>
+                    <a href="" id="back-actives">Voltar para a tela inicial</a>
+                </div>
+            `;
+            statusField.innerHTML = labelsStatus
+        }
     }
 })
