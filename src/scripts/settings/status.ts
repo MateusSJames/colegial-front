@@ -385,23 +385,69 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 alertContent.style.backgroundColor = 'orange';
                                 alertContent.style.color = 'white';
                                 alertContent.style.border = '0';
-                                await settingsService.deleteStatus('pluspedidos', statusValues[indexRemove].id.toString());
-                                statusValues.splice(indexRemove, 1);
-                                for (let i = indexRemove; i < statusValues.length; i ++) {
-                                    statusValues[i].posicao = statusValues[i].posicao - 1;
-                                }
-                                for(let i = 0; i < statusValues.length; i ++) {
-                                    const element: ListItem = statusValues[i];
-                                    await settingsService.setStatusPosition('pluspedidos', element);
-                                }
-                                if(alertContent != null) {
+                                const response: any = await settingsService.deleteStatus('pluspedidos', statusValues[indexRemove].id.toString());
+                                if(response.status == 200) {
+                                    statusValues.splice(indexRemove, 1);
+                                    for (let i = indexRemove; i < statusValues.length; i ++) {
+                                        statusValues[i].posicao = statusValues[i].posicao - 1;
+                                    }
+                                    for(let i = 0; i < statusValues.length; i ++) {
+                                        const element: ListItem = statusValues[i];
+                                        await settingsService.setStatusPosition('pluspedidos', element);
+                                    }
+                                    if(alertContent != null) {
+                                        alertContent.style.visibility = "visible";
+                                        alertContent.style.backgroundColor = 'green';
+                                        alertContent.innerHTML = `
+                                                <h3>Status deletado com sucesso</h3>
+                                            `
+                                        location.reload()
+                                    }
+                                } else {
                                     alertContent.style.visibility = "visible";
-                                    alertContent.style.backgroundColor = 'green';
+                                    alertContent.style.backgroundColor = 'white';
+                                    alertContent.style.color = 'black';
+                                    alertContent.style.border = '1px solid black';
+                                    alertContent.style.flexDirection = 'column';
                                     alertContent.innerHTML = `
-                                            <h3>Status deletado com sucesso</h3>
+                                        <div id="pop-up-content">
+                                            <h4>Esse status está em uso, gostaria de inativar ?</h4>
+                                        </div>
+                                        <div id="pop-up-body">
+                                            <button id="finish-delete">Sim</button>
+                                            <button id="cancel-delete">Não</button>
+                                        </div>
+                                    `;
+                                    const finishDelete = document.getElementById('finish-delete');
+                                    const cancelDelete = document.getElementById('cancel-delete');
+                                    
+                                    finishDelete?.addEventListener('click', async () => {
+                                        alertContent.innerHTML = `
+                                            <h3>Inativando status ...</h3>
                                         `
-                                    location.reload()
+                                        alertContent.style.backgroundColor = 'orange';
+                                        alertContent.style.color = 'white';
+                                        alertContent.style.border = '0';
+                                        await settingsService.setStatusPosition('pluspedidos', {
+                                            id: e.id,
+                                            nome: e.nome,
+                                            posicao: -1,
+                                        });
+                                        if(alertContent != null) {
+                                            alertContent.style.visibility = "visible";
+                                            alertContent.style.backgroundColor = 'green';
+                                            alertContent.innerHTML = `
+                                                    <h3>Status inativado com sucesso</h3>
+                                                `
+                                            location.reload()
+                                        }
+                                    })
+                                    
+                                    cancelDelete?.addEventListener('click', () => {
+                                        alertContent.style.visibility = "hidden";
+                                    })
                                 }
+                                
                             })
                             cancelDelete?.addEventListener('click', () => {
                                 alertContent.style.visibility = "hidden";
