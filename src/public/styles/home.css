@@ -10,7 +10,14 @@
 #container {
     height: 85vh;
     width: 100vw;
-    background-color: aquamarine;
+    display: flex;
+}
+
+#content-page {
+    height: 85vh;
+    width: 82vw;
+    padding: 2vmax 1vmax 2vmax 1vmax;
+    display: flex;
 }
 
 header {
@@ -51,9 +58,15 @@ header {
 }
 
 #filters {
-    width: 20vw;
+    padding: 5vmax 1vmax 5vmax 1vmax;
+    width: 18vw;
     height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: white;
+    border: 1px solid rgb(148, 148, 148);
+    background-color: rgb(199, 198, 199);
 }
 
 #status-page {
@@ -64,6 +77,53 @@ header {
 
 #status-page:hover {
     cursor: pointer;
+}
+
+h3[id^="filter-status"]{
+    color: black;
+    margin-left: 1vmax;
+}
+
+h3[id^="filter-status"]:hover{
+    cursor: pointer;
+}
+
+div[id^="order"]{
+    margin: 1vmax;
+    padding: 1vmax;
+    color: black;
+    background-color: rgb(199, 198, 199);
+    border-radius: 20px;
+    width: 30vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+div[id^="order"]:hover {
+    cursor: pointer;
+}
+
+#row-ids {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 920px) {
+    #content-page {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    div[id^="order"]{
+        font-size: 1.5vmax;
+    }
+
+    #filters {
+        width: 25vw;
+        height: 100vh;
+    }
 }
 
 @media screen and (max-width: 720px) {
@@ -90,6 +150,15 @@ header {
 }
 
 @media screen and (max-width: 430px) {
+
+    div[id^="order"]{
+        width: 60vw;
+    }
+
+    #content-page {
+        width: 100vw;
+        justify-content: center;
+    }
 
     header {
         padding-left: 5vmax;
