@@ -103,10 +103,18 @@ function updateList(lista: ListItem[]) {
             }
 
             buttonDown?.addEventListener('click', () => {
+                const buttonSubmitStatus = document.getElementById('btn-update-status')
+                if(buttonSubmitStatus) {
+                    buttonSubmitStatus.style.visibility = "visible";
+                }
                 moveDown(lista, e.id);
             });
     
             buttonUp?.addEventListener('click', () => {
+                const buttonSubmitStatus = document.getElementById('btn-update-status')
+                if(buttonSubmitStatus) {
+                    buttonSubmitStatus.style.visibility = "visible";
+                }
                 moveUp(lista, e.id);
             });
 
@@ -129,7 +137,6 @@ function updateList(lista: ListItem[]) {
                                         <h3>Enviando atualizações ...</h3>
                                     `
                             }
-                            alert(e.posicao)
                             await settingsService.setStatusPosition('pluspedidos', {
                                 id: e.id,
                                 nome: inputEdit.value,
@@ -378,10 +385,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             
             buttonDown?.addEventListener('click', () => {
+                const buttonSubmitStatus = document.getElementById('btn-update-status')
+                if(buttonSubmitStatus) {
+                    buttonSubmitStatus.style.visibility = "visible";
+                }
                 moveDown(statusValues, e.id);
             });
 
             buttonUp?.addEventListener('click', () => {
+                const buttonSubmitStatus = document.getElementById('btn-update-status')
+                if(buttonSubmitStatus) {
+                    buttonSubmitStatus.style.visibility = "visible";
+                }
                 moveUp(statusValues, e.id);
             });
             buttonEdit?.addEventListener('click', () => {

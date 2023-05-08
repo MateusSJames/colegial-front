@@ -108,6 +108,7 @@ button[id^="drop-up"]:hover{
     font-size: 1.2vmax;
     font-weight: bold;
     border-radius: 20px;
+    visibility: hidden;
 }
 
 #popup {
