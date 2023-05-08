@@ -777,7 +777,6 @@ statusInactive?.addEventListener('click', async () => {
             labelsStatus = `
                 <div id="alert-empty">
                     <h4>Você não possui status inativos</h4>
-                    <a href="" id="back-actives">Voltar para a tela inicial</a>
                 </div>
             `;
             statusField.innerHTML = labelsStatus
