@@ -24,6 +24,44 @@ interface OrderDto {
 	total: number
 }
 
+function updateList(lista: OrderDto[]) {
+    let orders = '';
+    if(lista.length > 0) {
+        lista.map((e) => {
+            const date = new Date(e.data_atualizacao);
+            const formattedDate = Intl.DateTimeFormat(
+                'pt-BR', 
+                {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+            }).format(date)
+            const formattedValue = new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(e.total);
+            orders += `
+                <div id="order-${e.id}">
+                    <h4>Data:  ${formattedDate}</h4>
+                    <h4>Pedido:  ${e.id}</h4>
+                    <h4>Valor:  ${formattedValue}</h4>
+                </div>
+            `
+        })
+    } else {
+        orders = `
+            <h3>Você não possue nenhum pedido com esse status</h3>
+        `;
+    }
+    const contentPage = document.getElementById('content-page');
+    if(contentPage) {
+        contentPage.innerHTML = orders;
+    }
+}
+
 buttonParam?.addEventListener('click', (event) => {
     event.preventDefault();
     
@@ -50,7 +88,7 @@ buttonPedido?.addEventListener('click', async (event) => {
     
     const statusResponse: any = await serviceStatus.getStatusList('pluspedidos')
     let listStatus: StatusDto[] = statusResponse.response
-    
+
     const orderResponse: any = await serviceHome.getOrdersPendings('pluspedidos', listStatus[0].nome)
     let ordersPendings: OrderDto[] = orderResponse.response
 
@@ -67,46 +105,47 @@ buttonPedido?.addEventListener('click', async (event) => {
     }
     if(contentPage) {
         contentPage.innerHTML = '';
-        ordersPendings.map((e) => {
-            const date = new Date(e.data_atualizacao);
-            const formattedDate = Intl.DateTimeFormat(
-                'pt-BR', 
-                {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-            }).format(date)
-            if(e.observacao === '') {
+        if(ordersPendings.length > 0) {
+            ordersPendings.map((e) => {
+                const date = new Date(e.data_atualizacao);
+                const formattedDate = Intl.DateTimeFormat(
+                    'pt-BR', 
+                    {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                }).format(date)
+                const formattedValue = new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                }).format(e.total);
                 contentPage.innerHTML += `
                     <div id="order-${e.id}">
                         <h4>Data:  ${formattedDate}</h4>
-                        <div id="row-ids">
-                            <h4>Pedido:  ${e.id}</h4>
-                            <h4>Seq.Shop:  ${e.sequencia_shop}</h4>
-                        </div>
-                        <h4>Fornecedor:  ${e.nome_fornecedor}</h4>
-                        <h4>Status:  ${e.st}</h4>
-                        <h4>Valor:  ${e.total}</h4>
+                        <h4>Pedido:  ${e.id}</h4>
+                        <h4>Valor:  ${formattedValue}</h4>
                     </div>
                 `
-            } else {
-                contentPage.innerHTML += `
-                    <div id="order-${e.id}">
-                        <h4>Data:  ${formattedDate}</h4>
-                        <div id="row-ids">
-                            <h4>Pedido:  ${e.id}</h4>
-                            <h4>Seq.Shop:  ${e.sequencia_shop}</h4>
-                        </div>
-                        <h4>Fornecedor:  ${e.nome_fornecedor}</h4>
-                        <h4>Status:  ${e.st}</h4>
-                        <h4>Obs:  ${e.observacao}</h4>
-                        <h4>Valor:  ${e.total}</h4>
-                    </div>
-                `
-            }
-        })
+            })
+        } else {
+            contentPage.innerHTML += `
+                <h3>Você não possue nenhum pedido pendente</h3>
+            `
+        }
     }
+
+    const filtersDiv = document.getElementById('filters');
+    const h3List = filtersDiv?.querySelectorAll('h3');
+
+    h3List?.forEach((h3) => {
+      h3.addEventListener('click', async () => {
+        const orderResponse: any = await serviceHome.getOrdersPendings('pluspedidos', h3.textContent)
+        let ordersPendings: OrderDto[] = orderResponse.response
+        updateList(ordersPendings);
+      });
+    });
 })
+
