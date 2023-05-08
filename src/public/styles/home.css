@@ -111,11 +111,34 @@ div[id^="order"]:hover {
     justify-content: space-between;
 }
 
+#details {
+    /* position: absolute; */
+    width: 100vw;
+    height: 70vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    padding: 2vmax;
+}
+
+#grid-details {
+    position: absolute;
+    visibility: hidden;
+    width: 50vw;
+    height: 50vh;
+    border: 1px solid black;
+}
+
+#header-client {
+    background-color: rgb(199, 198, 199);
+    height: 17%;
+    display: flex;
+    padding: 1vmax;
+    justify-content: space-between;
+}
+
 @media screen and (max-width: 920px) {
-    /* #content-page {
-        flex-wrap: wrap;
-        justify-content: center;
-    } */
 
     div[id^="order"]{
         font-size: 1.5vmax;
@@ -125,6 +148,7 @@ div[id^="order"]:hover {
         width: 25vw;
         height: 100vh;
     }
+
 }
 
 @media screen and (max-width: 720px) {

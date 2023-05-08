@@ -24,6 +24,13 @@ interface OrderDto {
 	total: number
 }
 
+interface ClientDto {
+    ordem: number,
+	codigo: number,
+    fantasia: string,
+	email: string
+}
+
 function updateList(lista: OrderDto[]) {
     let orders = '';
     if(lista.length > 0) {
@@ -147,5 +154,29 @@ buttonPedido?.addEventListener('click', async (event) => {
         updateList(ordersPendings);
       });
     });
+
+    ordersPendings.map((e) => {
+        const orderPeding = document.getElementById(`order-${e.id}`)
+        orderPeding?.addEventListener('click', async () => {
+            const homeService = new HomeService()
+            const clientResponse: any = await homeService.getClientByOrder('pluspedidos', e.ordem_cli_for.toString())
+            const client: ClientDto = clientResponse.response[0];
+            const gridDetails = document.getElementById('grid-details');
+            if(gridDetails) {
+                gridDetails.style.visibility = "visible";
+                gridDetails.innerHTML += `
+                    <div id="header-client">
+                        <h3>Cliente: ${client.fantasia}</h3>
+                        <select id="drop-status">
+                            <option value="option1">Opção 1</option>
+                            <option value="option2">Opção 2</option>
+                            <option value="option3">Opção 3</option>
+                        </select>
+
+                    </div>
+                `
+            }
+        })
+    })
 })
 

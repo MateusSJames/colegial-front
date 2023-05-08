@@ -7,4 +7,10 @@ describe('Home', () => {
         const response: any = await homeService.getOrdersPendings('pluspedidos', 'Solicitado')
         expect(response.status).toEqual(200);
     })
+
+    it('should get client by order', async () => {
+        const homeService = new HomeService();
+        const response: any = await homeService.getClientByOrder('pluspedidos', '1')
+        expect(response.status).toEqual(200);
+    })
 })
