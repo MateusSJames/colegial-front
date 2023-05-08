@@ -66,7 +66,7 @@ buttonPedido?.addEventListener('click', async (event) => {
         })
     }
     if(contentPage) {
-
+        contentPage.innerHTML = '';
         ordersPendings.map((e) => {
             const date = new Date(e.data_atualizacao);
             const formattedDate = Intl.DateTimeFormat(
