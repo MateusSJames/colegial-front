@@ -79,19 +79,34 @@ buttonPedido?.addEventListener('click', async (event) => {
                     minute: '2-digit',
                     second: '2-digit'
             }).format(date)
-            contentPage.innerHTML += `
-                <div id="order-${e.id}">
-                    <h4>Data:  ${formattedDate}</h4>
-                    <div id="row-ids">
-                        <h4>Pedido:  ${e.id}</h4>
-                        <h4>Seq.Shop:  ${e.sequencia_shop}</h4>
+            if(e.observacao === '') {
+                contentPage.innerHTML += `
+                    <div id="order-${e.id}">
+                        <h4>Data:  ${formattedDate}</h4>
+                        <div id="row-ids">
+                            <h4>Pedido:  ${e.id}</h4>
+                            <h4>Seq.Shop:  ${e.sequencia_shop}</h4>
+                        </div>
+                        <h4>Fornecedor:  ${e.nome_fornecedor}</h4>
+                        <h4>Status:  ${e.st}</h4>
+                        <h4>Valor:  ${e.total}</h4>
                     </div>
-                    <h4>Fornecedor:  ${e.nome_fornecedor}</h4>
-                    <h4>Status:  ${e.st}</h4>
-                    <h4>Obs:  ${e.observacao}</h4>
-                    <h4>Valor:  ${e.total}</h4>
-                </div>
-            `
+                `
+            } else {
+                contentPage.innerHTML += `
+                    <div id="order-${e.id}">
+                        <h4>Data:  ${formattedDate}</h4>
+                        <div id="row-ids">
+                            <h4>Pedido:  ${e.id}</h4>
+                            <h4>Seq.Shop:  ${e.sequencia_shop}</h4>
+                        </div>
+                        <h4>Fornecedor:  ${e.nome_fornecedor}</h4>
+                        <h4>Status:  ${e.st}</h4>
+                        <h4>Obs:  ${e.observacao}</h4>
+                        <h4>Valor:  ${e.total}</h4>
+                    </div>
+                `
+            }
         })
     }
 })
