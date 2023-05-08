@@ -263,10 +263,19 @@ button[id^="drop-up"]:hover{
     cursor: pointer;
 }
 
+#back-status {
+    color: rgba(223, 94, 19, 0.863);
+    font-weight: bold;
+}
+
+#back-status:hover {
+    cursor: pointer;
+}
+
 button[id^="btn-check"]{
     visibility: hidden;
     background-color: rgb(221, 219, 219);
-    margin-right: 1vmax;
+    margin-left: 1vmax;
     border: 0;
 }
 
@@ -274,6 +283,7 @@ button[id^="btn-cancel"]{
     visibility: hidden;
     background-color: rgb(221, 219, 219);
     border: 0;
+    margin-left: 1vmax;
 }
 
 button[id^="btn-delete"]{
@@ -304,6 +314,11 @@ button[id^="btn-restore"]{
     padding-top: 1vmax;
     color: rgba(223, 94, 19, 0.863);
     font-weight: bold;
+}
+
+#row-edit {
+    visibility: hidden;
+    padding-top: 1vmax;
 }
 
 @media screen and (max-width: 700px) {

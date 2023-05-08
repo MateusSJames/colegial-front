@@ -50,16 +50,23 @@ function updateList(lista: ListItem[]) {
             const buttonSaveId = `btn-check-${e.id}`;
             const buttonCancelId = `btn-cancel-${e.id}`;
             const labelStatusId = `label-status-${e.id}`;
+            const inputStatusId = `input-status-${e.id}`;
+
             labelsStatus += `
             <div id="row-status">
-                <h4 id="${labelStatusId}">${e.nome}</h4>
+                <div>
+                    <h4 id="${labelStatusId}">${e.nome}</h4>
+                    <div id ="row-edit">
+                        <input id="${inputStatusId}" type="text">
+                        <button id="${buttonSaveId}">
+                            <img src="../../assets/verificar.png" alt="Logo" id="button-check">
+                        </button>
+                        <button id="${buttonCancelId}">
+                            <img src="../../assets/cancelar.png" alt="Logo" id="button-cancel">
+                        </button>
+                    </div>
+                </div>
                 <div id="buttons-arrow">
-                    <button id="${buttonSaveId}">
-                        <img src="../../assets/verificar.png" alt="Logo" id="button-check">
-                    </button>
-                    <button id="${buttonCancelId}">
-                        <img src="../../assets/cancelar.png" alt="Logo" id="button-cancel">
-                    </button>
                     <button id="${buttonEditId}">
                         <img src="../../assets/editar.png" alt="Logo" id="button-edit">
                     </button>
@@ -89,6 +96,11 @@ function updateList(lista: ListItem[]) {
             const labelStatusId = document.getElementById(`label-status-${e.id}`);
             const buttonSave = document.getElementById(`btn-check-${e.id}`);
             const buttonCancel = document.getElementById(`btn-cancel-${e.id}`);
+            const inputEdit = (document.getElementById(`input-status-${e.id}`) as HTMLInputElement)
+
+            if(inputEdit != null && labelStatusId?.textContent != null) {
+                inputEdit.value = labelStatusId.textContent
+            }
 
             buttonDown?.addEventListener('click', () => {
                 moveDown(lista, e.id);
@@ -98,15 +110,12 @@ function updateList(lista: ListItem[]) {
                 moveUp(lista, e.id);
             });
 
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.value = labelStatusId?.textContent as string;
             buttonEdit?.addEventListener('click', () => {
                 buttonEdit.style.visibility = "hidden";
+                inputEdit.style.visibility = "visible";
                 if(buttonDelete) {
                     buttonDelete.style.visibility = "hidden";
                 }
-                labelStatusId?.parentNode?.replaceChild(input, labelStatusId);
                 if(buttonSave != null) {
                     buttonSave.style.visibility = "visible";
                     buttonSave.addEventListener('click', async () => {
@@ -120,9 +129,10 @@ function updateList(lista: ListItem[]) {
                                         <h3>Enviando atualizações ...</h3>
                                     `
                             }
+                            alert(e.posicao)
                             await settingsService.setStatusPosition('pluspedidos', {
                                 id: e.id,
-                                nome: input.value,
+                                nome: inputEdit.value,
                                 posicao: e.posicao
                             });
                             if(alertContent != null) {
@@ -153,19 +163,21 @@ function updateList(lista: ListItem[]) {
                 }
                 if(buttonCancel != null) {
                     buttonCancel.style.visibility = "visible";
-                    buttonCancel.addEventListener('click', () => {
-                        const h4= document.createElement('h4');
-                        h4.id = `label-status-${e.id}`
-                        buttonEdit.style.visibility = "visible";
-                        if(buttonDelete) {
-                            buttonDelete.style.visibility = "visible";
-                        }
-                        buttonCancel.style.visibility = "hidden";
-                        if(buttonSave != null) {
-                            buttonSave.style.visibility = "hidden";
-                        }
-                        labelStatusId?.parentNode?.replaceChild(h4, input);
-                    })
+                }
+            })
+
+            buttonCancel?.addEventListener('click', async () => {
+                const input = (document.getElementById(`input-status-${e.id}`) as HTMLInputElement)
+                input.style.visibility = "hidden";
+                if(buttonEdit) {
+                    buttonEdit.style.visibility = "visible";
+                }
+                if(buttonDelete) {
+                    buttonDelete.style.visibility = "visible";
+                }
+                buttonCancel.style.visibility = "hidden";
+                if(buttonSave != null) {
+                    buttonSave.style.visibility = "hidden";
                 }
             })
             
@@ -313,17 +325,23 @@ document.addEventListener('DOMContentLoaded', async () => {
             const buttonSaveId = `btn-check-${e.id}`;
             const buttonCancelId = `btn-cancel-${e.id}`;
             const labelStatusId = `label-status-${e.id}`;
+            const inputStatusId = `input-status-${e.id}`;
 
             labelsStatus += `
             <div id="row-status">
-                <h4 id="${labelStatusId}">${e.nome}</h4>
+                <div>
+                    <h4 id="${labelStatusId}">${e.nome}</h4>
+                    <div id ="row-edit">
+                        <input id="${inputStatusId}" type="text">
+                        <button id="${buttonSaveId}">
+                            <img src="../../assets/verificar.png" alt="Logo" id="button-check">
+                        </button>
+                        <button id="${buttonCancelId}">
+                            <img src="../../assets/cancelar.png" alt="Logo" id="button-cancel">
+                        </button>
+                    </div>
+                </div>
                 <div id="buttons-arrow">
-                    <button id="${buttonSaveId}">
-                        <img src="../../assets/verificar.png" alt="Logo" id="button-check">
-                    </button>
-                    <button id="${buttonCancelId}">
-                        <img src="../../assets/cancelar.png" alt="Logo" id="button-cancel">
-                    </button>
                     <button id="${buttonEditId}">
                         <img src="../../assets/editar.png" alt="Logo" id="button-edit">
                     </button>
@@ -353,6 +371,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             const labelStatusId = document.getElementById(`label-status-${e.id}`);
             const buttonSave = document.getElementById(`btn-check-${e.id}`);
             const buttonCancel = document.getElementById(`btn-cancel-${e.id}`);
+            const inputEdit = (document.getElementById(`input-status-${e.id}`) as HTMLInputElement)
+
+            if(inputEdit != null && labelStatusId?.textContent != null) {
+                inputEdit.value = labelStatusId.textContent
+            }
+            
             buttonDown?.addEventListener('click', () => {
                 moveDown(statusValues, e.id);
             });
@@ -360,15 +384,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             buttonUp?.addEventListener('click', () => {
                 moveUp(statusValues, e.id);
             });
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.value = labelStatusId?.textContent as string;
             buttonEdit?.addEventListener('click', () => {
                 buttonEdit.style.visibility = "hidden";
+                inputEdit.style.visibility = "visible";
                 if(buttonDelete) {
                     buttonDelete.style.visibility = "hidden";
                 }
-                labelStatusId?.parentNode?.replaceChild(input, labelStatusId);
                 if(buttonSave != null) {
                     buttonSave.style.visibility = "visible";
                     buttonSave.addEventListener('click', async () => {
@@ -384,7 +405,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             }
                             await settingsService.setStatusPosition('pluspedidos', {
                                 id: e.id,
-                                nome: input.value,
+                                nome: inputEdit?.value,
                                 posicao: e.posicao
                             });
                             if(alertContent != null) {
@@ -415,19 +436,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
                 if(buttonCancel != null) {
                     buttonCancel.style.visibility = "visible";
-                    buttonCancel.addEventListener('click', () => {
-                        const h4= document.createElement('h4');
-                        h4.id = `label-status-${e.id}`
-                        buttonEdit.style.visibility = "visible";
-                        if(buttonDelete) {
-                            buttonDelete.style.visibility = "visible";
-                        }
-                        buttonCancel.style.visibility = "hidden";
-                        if(buttonSave != null) {
-                            buttonSave.style.visibility = "hidden";
-                        }
-                        labelStatusId?.parentNode?.replaceChild(h4, input);
-                    })
+                }
+            })
+            buttonCancel?.addEventListener('click', async () => {
+                const input = (document.getElementById(`input-status-${e.id}`) as HTMLInputElement)
+                input.style.visibility = "hidden";
+                if(buttonEdit) {
+                    buttonEdit.style.visibility = "visible";
+                }
+                if(buttonDelete) {
+                    buttonDelete.style.visibility = "visible";
+                }
+                buttonCancel.style.visibility = "hidden";
+                if(buttonSave != null) {
+                    buttonSave.style.visibility = "hidden";
                 }
             })
             buttonDelete?.addEventListener('click', async () => {
@@ -658,7 +680,7 @@ buttonPostStatus?.addEventListener('click', async (e) => {
 
 const statusInactive = document.getElementById('status-trash')
 statusInactive?.addEventListener('click', async () => {
-    statusInactive.style.visibility = "hidden";
+    // statusInactive.style.visibility = "hidden";
     const settingsService = new SettingsService();
     const statusResponse: any = await settingsService.getInactiveStatusList('pluspedidos');
     const statusValues: ListItem[] = statusResponse.response
@@ -682,6 +704,8 @@ statusInactive?.addEventListener('click', async () => {
         });
     }
 
+    statusInactive.textContent = 'Voltar';
+    statusInactive.id = 'back-status';
     const statusField = document.getElementById('setting-status')    
 
     if (statusField) {
@@ -744,4 +768,9 @@ statusInactive?.addEventListener('click', async () => {
             statusField.innerHTML = labelsStatus
         }
     }
+
+    const back = document.getElementById('back-status');
+    back?.addEventListener('click', () => {
+        location.reload()
+    })
 })
