@@ -1,5 +1,5 @@
-import { SettingsService } from '../services/settings_service'
 import { HomeService } from '../services/home_service'
+import { SettingsService } from '../services/settings_service'
 
 const buttonParam = document.getElementById('parametros')
 const buttonPedido = document.getElementById('pedidos')
@@ -31,7 +31,7 @@ interface ClientDto {
 	email: string
 }
 
-function updateList(lista: OrderDto[]) {
+function updateList(lista: OrderDto[], listaStatus: StatusDto[]) {
     let orders = '';
     if(lista.length > 0) {
         lista.map((e) => {
@@ -67,6 +67,41 @@ function updateList(lista: OrderDto[]) {
     if(contentPage) {
         contentPage.innerHTML = orders;
     }
+    lista.map((e) => {
+        const orderPeding = document.getElementById(`order-${e.id}`)
+        orderPeding?.addEventListener('click', async () => {
+            const homeService = new HomeService()
+            const clientResponse: any = await homeService.getClientByOrder('pluspedidos', e.ordem_cli_for.toString())
+            const client: ClientDto = clientResponse.response[0];
+            const gridDetails = document.getElementById('grid-details');
+            if(gridDetails) {
+                gridDetails.innerHTML = '';
+                gridDetails.style.visibility = "visible";
+                gridDetails.innerHTML += `
+                    <div id="header-client">
+                        <h3>Cliente: ${client.fantasia}</h3>
+                        <select id="drop-status">
+                        </select>
+
+                    </div>
+                `
+                const dropDownStatus = document.getElementById("drop-status");
+                if(dropDownStatus) {
+                    dropDownStatus.innerHTML += `
+                        <option value="option-first">${e.st}</option>
+                    `
+                    listaStatus.map((st) => {
+                        if(st.nome != e.st) {
+                            dropDownStatus.innerHTML += `
+                                <option value="option${st.posicao}">${st.nome}</option>
+                            `
+                        }
+                    })
+                }
+                
+            }
+        })
+    })
 }
 
 buttonParam?.addEventListener('click', (event) => {
@@ -151,7 +186,12 @@ buttonPedido?.addEventListener('click', async (event) => {
       h3.addEventListener('click', async () => {
         const orderResponse: any = await serviceHome.getOrdersPendings('pluspedidos', h3.textContent)
         let ordersPendings: OrderDto[] = orderResponse.response
-        updateList(ordersPendings);
+        const gridDetails = document.getElementById('grid-details');
+        if(gridDetails) {
+            gridDetails.style.visibility = "hidden";
+            gridDetails.innerHTML = '';
+        }
+        updateList(ordersPendings, listStatus);
       });
     });
 
@@ -163,18 +203,31 @@ buttonPedido?.addEventListener('click', async (event) => {
             const client: ClientDto = clientResponse.response[0];
             const gridDetails = document.getElementById('grid-details');
             if(gridDetails) {
+                gridDetails.innerHTML = '';
                 gridDetails.style.visibility = "visible";
                 gridDetails.innerHTML += `
                     <div id="header-client">
                         <h3>Cliente: ${client.fantasia}</h3>
                         <select id="drop-status">
-                            <option value="option1">Opção 1</option>
-                            <option value="option2">Opção 2</option>
-                            <option value="option3">Opção 3</option>
                         </select>
 
                     </div>
                 `
+                const dropDownStatus = document.getElementById("drop-status");
+                if(dropDownStatus) {
+                    dropDownStatus.innerHTML = '';
+                    dropDownStatus.innerHTML += `
+                        <option value="option-first">${e.st}</option>
+                    `
+                    listStatus.map((st) => {
+                        if(st.nome != e.st) {
+                            dropDownStatus.innerHTML += `
+                                <option value="option${st.posicao}">${st.nome}</option>
+                            `
+                        }
+                    })
+                }
+                
             }
         })
     })
