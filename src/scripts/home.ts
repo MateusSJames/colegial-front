@@ -42,7 +42,7 @@ interface ProductDto {
     nome: string
 }
 
-function updateList(lista: OrderDto[], listaStatus: StatusDto[]) {
+function updateList(lista: OrderDto[], listaStatus: StatusDto[], filter: string) {
     let orders = '';
     if(lista.length > 0) {
         lista.map((e) => {
@@ -184,12 +184,20 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[]) {
                     });
                 }
                 buttonUpdateStatus?.addEventListener('click', async () => {
+                    alert(filter)
                     const status = {
                         id_pedido: e.id,
                         id_status:  parseInt(idStatus)
                     }
-                    const response =await homeService.updateStatusOrder('pluspedidos', status);
-                    console.log(response)
+                    await homeService.updateStatusOrder('pluspedidos', status);
+                    const orderUpdateResponse: any = await homeService.getOrdersPendings('pluspedidos', filter)
+                    let ordersPendings: OrderDto[] = orderUpdateResponse.response
+                    const gridDetails = document.getElementById('grid-details');
+                    if(gridDetails) {
+                        gridDetails.style.visibility = "hidden";
+                        gridDetails.innerHTML = '';
+                    }
+                    updateList(ordersPendings, listaStatus, filter);
                 })
                 
             }
@@ -291,7 +299,8 @@ buttonPedido?.addEventListener('click', async (event) => {
 
     const filtersDiv = document.getElementById('filters');
     const h3List = filtersDiv?.querySelectorAll('h3');
-
+    let statusFilter: string;
+    statusFilter = listStatus[0].nome;
     h3List?.forEach((h3) => {
       h3.addEventListener('click', async () => {
         const allH3s = document.querySelectorAll('#filters h3'); // Seleciona todos os h3s dentro da div filters
@@ -301,6 +310,9 @@ buttonPedido?.addEventListener('click', async (event) => {
             }
         });
         h3.style.color = 'white';
+        if(h3.textContent) {
+            statusFilter = h3.textContent;
+        }
         const orderResponse: any = await serviceHome.getOrdersPendings('pluspedidos', h3.textContent)
         let ordersPendings: OrderDto[] = orderResponse.response
         const gridDetails = document.getElementById('grid-details');
@@ -308,7 +320,7 @@ buttonPedido?.addEventListener('click', async (event) => {
             gridDetails.style.visibility = "hidden";
             gridDetails.innerHTML = '';
         }
-        updateList(ordersPendings, listStatus);
+        updateList(ordersPendings, listStatus, statusFilter);
       });
     });
 
@@ -421,8 +433,15 @@ buttonPedido?.addEventListener('click', async (event) => {
                         id_pedido: e.id,
                         id_status:  parseInt(idStatus)
                     }
-                    const response =await homeService.updateStatusOrder('pluspedidos', status);
-                    console.log(response)
+                    await homeService.updateStatusOrder('pluspedidos', status);
+                    const orderUpdateResponse: any = await serviceHome.getOrdersPendings('pluspedidos', statusFilter)
+                    let ordersPendings: OrderDto[] = orderUpdateResponse.response
+                    const gridDetails = document.getElementById('grid-details');
+                    if(gridDetails) {
+                        gridDetails.style.visibility = "hidden";
+                        gridDetails.innerHTML = '';
+                    }
+                    updateList(ordersPendings, listStatus, statusFilter);
                 })
             }
         })
