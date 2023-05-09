@@ -31,6 +31,17 @@ interface ClientDto {
 	email: string
 }
 
+interface ProductDto {
+    id_pedido: number,
+    ordem_prod_serv: number,
+    quantidade: number,
+    valor: number,
+    complemento: string,
+    quantidade_atendida: number,
+    foto: string,
+    nome: string
+}
+
 function updateList(lista: OrderDto[], listaStatus: StatusDto[]) {
     let orders = '';
     if(lista.length > 0) {
@@ -68,37 +79,49 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[]) {
         contentPage.innerHTML = orders;
     }
     lista.map((e) => {
+        const date = new Date(e.data_atualizacao);
+        const formattedDate = Intl.DateTimeFormat(
+            'pt-BR', 
+            {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+        }).format(date)
+        const formattedValue = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(e.total);
         const orderPeding = document.getElementById(`order-${e.id}`)
         orderPeding?.addEventListener('click', async () => {
             const homeService = new HomeService()
             const clientResponse: any = await homeService.getClientByOrder('pluspedidos', e.ordem_cli_for.toString())
             const client: ClientDto = clientResponse.response[0];
+            const productResponse: any = await homeService.getProductsByOrder('pluspedidos', e.id.toString());
+            const products: ProductDto[] = productResponse.response;
             const gridDetails = document.getElementById('grid-details');
             if(gridDetails) {
                 gridDetails.innerHTML = '';
                 gridDetails.style.visibility = "visible";
                 gridDetails.innerHTML += `
                     <div id="header-client">
-                        <h3>Cliente: ${client.fantasia}</h3>
+                        <div id="dates-order">
+                            <h3>Cliente: ${client.fantasia}</h3>
+                            <h5>Data: ${formattedDate}</h5>
+                            <h5>Pedido:  ${e.id}</h5>
+                            <h5>Valor: ${formattedValue}</h5>
+                        </div>
                         <select id="drop-status">
                         </select>
                     </div>
                     <div id="body-products">
-                        <table>
+                        <table id="table-products">
                             <tr>
-                            <th>Coluna 1</th>
-                            <th>Coluna 2</th>
-                            <th>Coluna 3</th>
-                            </tr>
-                            <tr>
-                            <td>Dado 1</td>
-                            <td>Dado 2</td>
-                            <td>Dado 3</td>
-                            </tr>
-                            <tr>
-                            <td>Dado 4</td>
-                            <td>Dado 5</td>
-                            <td>Dado 6</td>
+                                <th>Produto</th>
+                                <th>Solicitada</th>
+                                <th>Atendida</th>
                             </tr>
                         </table>                  
                     </div>
@@ -114,6 +137,19 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[]) {
                                 <option value="option${st.posicao}">${st.nome}</option>
                             `
                         }
+                    })
+                }
+
+                const tableProducts = document.getElementById('table-products');
+                if(tableProducts) {
+                    products.map((product) => {
+                        tableProducts.innerHTML += `
+                            <tr>
+                                <th>${product.nome}</th>
+                                <th>${product.quantidade}</th>
+                                <th>${product.quantidade_atendida}</th>
+                            </tr>
+                        `;
                     })
                 }
                 
@@ -161,6 +197,12 @@ buttonPedido?.addEventListener('click', async (event) => {
             filterContent.innerHTML += `
                 <h3 id="filter-status-${e.id}">${e.nome}</h3>
             `;
+            if(e.posicao == 0) {
+                const firstStatus= document.getElementById(`filter-status-${e.id}`);
+                if(firstStatus) {
+                    firstStatus.style.color = 'white'
+                }
+            }
         })
     }
     if(contentPage) {
@@ -202,6 +244,13 @@ buttonPedido?.addEventListener('click', async (event) => {
 
     h3List?.forEach((h3) => {
       h3.addEventListener('click', async () => {
+        const allH3s = document.querySelectorAll('#filters h3'); // Seleciona todos os h3s dentro da div filters
+        allH3s.forEach(h3Element => {
+            if (h3Element instanceof HTMLHeadingElement) {
+                h3Element.style.color = 'black'
+            }
+        });
+        h3.style.color = 'white';
         const orderResponse: any = await serviceHome.getOrdersPendings('pluspedidos', h3.textContent)
         let ordersPendings: OrderDto[] = orderResponse.response
         const gridDetails = document.getElementById('grid-details');
@@ -214,10 +263,27 @@ buttonPedido?.addEventListener('click', async (event) => {
     });
 
     ordersPendings.map((e) => {
+        const date = new Date(e.data_atualizacao);
+        const formattedDate = Intl.DateTimeFormat(
+            'pt-BR', 
+            {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+        }).format(date)
+        const formattedValue = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(e.total);
         const orderPeding = document.getElementById(`order-${e.id}`)
         orderPeding?.addEventListener('click', async () => {
             const homeService = new HomeService()
             const clientResponse: any = await homeService.getClientByOrder('pluspedidos', e.ordem_cli_for.toString())
+            const productResponse: any = await homeService.getProductsByOrder('pluspedidos', e.id.toString());
+            const products: ProductDto[] = productResponse.response;
             const client: ClientDto = clientResponse.response[0];
             const gridDetails = document.getElementById('grid-details');
             if(gridDetails) {
@@ -225,7 +291,12 @@ buttonPedido?.addEventListener('click', async (event) => {
                 gridDetails.style.visibility = "visible";
                 gridDetails.innerHTML += `
                     <div id="header-client">
-                        <h3>Cliente: ${client.fantasia}</h3>
+                        <div id="dates-order">
+                            <h3>Cliente: ${client.fantasia}</h3>
+                            <h5>Data: ${formattedDate}</h5>
+                            <h5>Pedido:  ${e.id}</h5>
+                            <h5>Valor: ${formattedValue}</h5>
+                        </div>
                         <select id="drop-status">
                         </select>
                     </div>
@@ -235,16 +306,6 @@ buttonPedido?.addEventListener('click', async (event) => {
                                 <th>Produto</th>
                                 <th>Solicitada</th>
                                 <th>Atendida</th>
-                            </tr>
-                            <tr>
-                                <td>Dado 1</td>
-                                <td>Dado 2</td>
-                                <td>Dado 3</td>
-                            </tr>
-                            <tr>
-                                <td>Dado 4</td>
-                                <td>Dado 5</td>
-                                <td>Dado 6</td>
                             </tr>
                         </table>                  
                     </div>
@@ -263,7 +324,19 @@ buttonPedido?.addEventListener('click', async (event) => {
                         }
                     })
                 }
-                
+
+                const tableProducts = document.getElementById('table-products');
+                if(tableProducts) {
+                    products.map((product) => {
+                        tableProducts.innerHTML += `
+                            <tr>
+                                <th>${product.nome}</th>
+                                <th>${product.quantidade}</th>
+                                <th>${product.quantidade_atendida}</th>
+                            </tr>
+                        `;
+                    })
+                }
             }
         })
     })

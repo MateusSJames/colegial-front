@@ -18,7 +18,6 @@
     width: 82vw;
     padding: 2vmax 1vmax 2vmax 1vmax;
     display: flex;
-    flex-direction: column;
 }
 
 header {
@@ -95,7 +94,7 @@ div[id^="order"]{
     color: black;
     background-color: rgb(199, 198, 199);
     border-radius: 20px;
-    width: 30vw;
+    width: 25vw;
     height: 20vh;
     display: flex;
     flex-direction: column;
@@ -113,7 +112,7 @@ div[id^="order"]:hover {
 
 #details {
     /* position: absolute; */
-    width: 100vw;
+    width: 80vw;
     height: 70vh;
     display: flex;
     flex-direction: row;
@@ -125,17 +124,39 @@ div[id^="order"]:hover {
 #grid-details {
     position: absolute;
     visibility: hidden;
-    width: 50vw;
+    width: 82vw;
     height: 50vh;
     border: 1px solid black;
+    background-color: white;
 }
 
 #header-client {
     background-color: rgb(199, 198, 199);
-    height: 17%;
+    height: 38%;
     display: flex;
     padding: 1vmax;
     justify-content: space-between;
+}
+
+#table-products {
+    padding: 1vmax;
+    width: 100%;
+}
+
+#table-products tr th{
+    border: 1px solid black;
+    text-align: start;
+    padding: 1vmax;
+}
+
+#dates-order {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#drop-status {
+    height: 3vmax;
 }
 
 @media screen and (max-width: 920px) {
@@ -149,6 +170,22 @@ div[id^="order"]:hover {
         height: 100vh;
     }
 
+    #content-page {
+        flex-wrap: wrap;
+        width: 100vw;
+    }
+
+    #details {
+        width: 10%;
+    }
+
+    #grid-details {
+        width: 78vw;
+    }
+
+    div[id^="order"]{
+        width: 30vw;
+    }
 }
 
 @media screen and (max-width: 720px) {
@@ -174,7 +211,18 @@ div[id^="order"]:hover {
     }
 }
 
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 700px) {
+
+    div[id^="order"]{
+        width: 60vw;
+    }
+
+    #filters {
+        width: 35vw;
+    }
+}
+
+@media screen and (max-width: 490px) {
 
     div[id^="order"]{
         width: 60vw;
@@ -183,6 +231,7 @@ div[id^="order"]:hover {
     #content-page {
         width: 100vw;
         align-items: center;
+        justify-content: center;
     }
 
     header {
@@ -192,6 +241,11 @@ div[id^="order"]:hover {
 
     #filters {
         display: none;
+    }
+
+    #grid-details {
+        width: 85vw;
+        height: 70vh;
     }
 }
 

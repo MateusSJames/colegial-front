@@ -13,4 +13,9 @@ describe('Home', () => {
         const response: any = await homeService.getClientByOrder('pluspedidos', '1')
         expect(response.status).toEqual(200);
     })
+    it('should return all products by order', async () => {
+        const homeService = new HomeService();
+        const response: any = await homeService.getProductsByOrder('pluspedidos', '22')
+        expect(response.status).toEqual(200);
+    })
 })
