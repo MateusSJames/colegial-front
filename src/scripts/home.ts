@@ -82,7 +82,25 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[]) {
                         <h3>Cliente: ${client.fantasia}</h3>
                         <select id="drop-status">
                         </select>
-
+                    </div>
+                    <div id="body-products">
+                        <table>
+                            <tr>
+                            <th>Coluna 1</th>
+                            <th>Coluna 2</th>
+                            <th>Coluna 3</th>
+                            </tr>
+                            <tr>
+                            <td>Dado 1</td>
+                            <td>Dado 2</td>
+                            <td>Dado 3</td>
+                            </tr>
+                            <tr>
+                            <td>Dado 4</td>
+                            <td>Dado 5</td>
+                            <td>Dado 6</td>
+                            </tr>
+                        </table>                  
                     </div>
                 `
                 const dropDownStatus = document.getElementById("drop-status");
@@ -210,7 +228,25 @@ buttonPedido?.addEventListener('click', async (event) => {
                         <h3>Cliente: ${client.fantasia}</h3>
                         <select id="drop-status">
                         </select>
-
+                    </div>
+                    <div id="body-products">
+                        <table id="table-products">
+                            <tr>
+                                <th>Produto</th>
+                                <th>Solicitada</th>
+                                <th>Atendida</th>
+                            </tr>
+                            <tr>
+                                <td>Dado 1</td>
+                                <td>Dado 2</td>
+                                <td>Dado 3</td>
+                            </tr>
+                            <tr>
+                                <td>Dado 4</td>
+                                <td>Dado 5</td>
+                                <td>Dado 6</td>
+                            </tr>
+                        </table>                  
                     </div>
                 `
                 const dropDownStatus = document.getElementById("drop-status");
