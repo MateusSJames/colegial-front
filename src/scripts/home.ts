@@ -106,6 +106,9 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[]) {
                 gridDetails.innerHTML = '';
                 gridDetails.style.visibility = "visible";
                 gridDetails.innerHTML += `
+                    <div id="exit-details">
+                        <h2 id="btn-exit-details">X</h2>
+                    </div>
                     <div id="header-client">
                         <div id="dates-order">
                             <h3>Cliente: ${client.fantasia}</h3>
@@ -139,6 +142,11 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[]) {
                         }
                     })
                 }
+
+                const buttonExit = document.getElementById('btn-exit-details');
+                buttonExit?.addEventListener('click', () => {
+                    gridDetails.style.visibility = 'hidden'
+                })
 
                 const tableProducts = document.getElementById('table-products');
                 if(tableProducts) {
@@ -290,6 +298,9 @@ buttonPedido?.addEventListener('click', async (event) => {
                 gridDetails.innerHTML = '';
                 gridDetails.style.visibility = "visible";
                 gridDetails.innerHTML += `
+                    <div id="exit-details">
+                        <h2 id="btn-exit-details">X</h2>
+                    </div>
                     <div id="header-client">
                         <div id="dates-order">
                             <h3>Cliente: ${client.fantasia}</h3>
@@ -324,7 +335,10 @@ buttonPedido?.addEventListener('click', async (event) => {
                         }
                     })
                 }
-
+                const buttonExit = document.getElementById('btn-exit-details');
+                buttonExit?.addEventListener('click', () => {
+                    gridDetails.style.visibility = 'hidden'
+                })
                 const tableProducts = document.getElementById('table-products');
                 if(tableProducts) {
                     products.map((product) => {
