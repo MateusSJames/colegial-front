@@ -116,28 +116,34 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[]) {
                             <h5>Pedido:  ${e.id}</h5>
                             <h5>Valor: ${formattedValue}</h5>
                         </div>
-                        <select id="drop-status">
-                        </select>
                     </div>
                     <div id="body-products">
                         <table id="table-products">
                             <tr>
                                 <th>Produto</th>
+                                <th>Complemento</th>
+                                <th>Valor</th>
                                 <th>Solicitada</th>
                                 <th>Atendida</th>
                             </tr>
                         </table>                  
                     </div>
+                    <div id="fixed-footer">
+                        <select id="drop-status"></select>
+                        <button id="btn-update-status">
+                            <img src="../assets/verificar.png" alt="Logo" id="button-cancel">
+                        </button>
+                    </div> 
                 `
                 const dropDownStatus = document.getElementById("drop-status");
                 if(dropDownStatus) {
                     dropDownStatus.innerHTML += `
-                        <option value="option-first">${e.st}</option>
+                        <option value="${listaStatus[0].id}">${e.st}</option>
                     `
                     listaStatus.map((st) => {
                         if(st.nome != e.st) {
                             dropDownStatus.innerHTML += `
-                                <option value="option${st.posicao}">${st.nome}</option>
+                                <option value=${st.id}">${st.nome}</option>
                             `
                         }
                     })
@@ -151,15 +157,40 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[]) {
                 const tableProducts = document.getElementById('table-products');
                 if(tableProducts) {
                     products.map((product) => {
+                        const formattedProductValue = new Intl.NumberFormat('pt-BR', {
+                            style: 'currency',
+                            currency: 'BRL'
+                        }).format(product.valor);
                         tableProducts.innerHTML += `
                             <tr>
                                 <th>${product.nome}</th>
+                                <th>${product.complemento}</th>
+                                <th>${formattedProductValue}</th>
                                 <th>${product.quantidade}</th>
                                 <th>${product.quantidade_atendida}</th>
                             </tr>
                         `;
                     })
                 }
+
+                
+                const buttonUpdateStatus = document.getElementById('btn-update-status');
+                const dropDownValue = document.getElementById('drop-status') as HTMLSelectElement;
+                let idStatus: string = listaStatus[0].id.toString();
+                if(dropDownValue) {
+                    dropDownValue.addEventListener('change', () => {
+                        const selectedOption: any = dropDownValue.value;
+                        idStatus = selectedOption
+                    });
+                }
+                buttonUpdateStatus?.addEventListener('click', async () => {
+                    const status = {
+                        id_pedido: e.id,
+                        id_status:  parseInt(idStatus)
+                    }
+                    const response =await homeService.updateStatusOrder('pluspedidos', status);
+                    console.log(response)
+                })
                 
             }
         })
@@ -168,8 +199,19 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[]) {
 
 buttonParam?.addEventListener('click', (event) => {
     event.preventDefault();
-    
+
+    const contentPage = document.getElementById('content-page');
     const filterContent = document.getElementById('filters');
+    const detailsOrder = document.getElementById('grid-details');
+    if(contentPage) {
+        contentPage.innerHTML = '';
+    }
+
+    if(detailsOrder) {
+        detailsOrder.innerHTML = '';
+        detailsOrder.style.visibility = 'hidden';
+    }
+
     if(filterContent != null) {
         filterContent.innerHTML = `
             <button id='status-page'>Status</button>
@@ -286,6 +328,7 @@ buttonPedido?.addEventListener('click', async (event) => {
             style: 'currency',
             currency: 'BRL'
         }).format(e.total);
+
         const orderPeding = document.getElementById(`order-${e.id}`)
         orderPeding?.addEventListener('click', async () => {
             const homeService = new HomeService()
@@ -308,29 +351,35 @@ buttonPedido?.addEventListener('click', async (event) => {
                             <h5>Pedido:  ${e.id}</h5>
                             <h5>Valor: ${formattedValue}</h5>
                         </div>
-                        <select id="drop-status">
-                        </select>
                     </div>
                     <div id="body-products">
                         <table id="table-products">
                             <tr>
                                 <th>Produto</th>
+                                <th>Complemento</th>
+                                <th>Valor</th>
                                 <th>Solicitada</th>
                                 <th>Atendida</th>
                             </tr>
                         </table>                  
                     </div>
+                    <div id="fixed-footer">
+                        <select id="drop-status"></select>
+                        <button id="btn-update-status">
+                            <img src="../assets/verificar.png" alt="Logo" id="button-cancel">
+                        </button>
+                    </div> 
                 `
                 const dropDownStatus = document.getElementById("drop-status");
                 if(dropDownStatus) {
                     dropDownStatus.innerHTML = '';
                     dropDownStatus.innerHTML += `
-                        <option value="option-first">${e.st}</option>
+                        <option value="${listStatus[0].id}">${e.st}</option>
                     `
                     listStatus.map((st) => {
                         if(st.nome != e.st) {
                             dropDownStatus.innerHTML += `
-                                <option value="option${st.posicao}">${st.nome}</option>
+                                <option value="${st.id}">${st.nome}</option>
                             `
                         }
                     })
@@ -342,15 +391,39 @@ buttonPedido?.addEventListener('click', async (event) => {
                 const tableProducts = document.getElementById('table-products');
                 if(tableProducts) {
                     products.map((product) => {
+                        const formattedProductValue = new Intl.NumberFormat('pt-BR', {
+                            style: 'currency',
+                            currency: 'BRL'
+                        }).format(product.valor);
                         tableProducts.innerHTML += `
                             <tr>
                                 <th>${product.nome}</th>
+                                <th>${product.complemento}</th>
+                                <th>${formattedProductValue}</th>
                                 <th>${product.quantidade}</th>
                                 <th>${product.quantidade_atendida}</th>
                             </tr>
                         `;
                     })
                 }
+
+                const buttonUpdateStatus = document.getElementById('btn-update-status');
+                const dropDownValue = document.getElementById('drop-status') as HTMLSelectElement;
+                let idStatus: string = listStatus[0].id.toString();
+                if(dropDownValue) {
+                    dropDownValue.addEventListener('change', () => {
+                        const selectedOption: any = dropDownValue.value;
+                        idStatus = selectedOption
+                    });
+                }
+                buttonUpdateStatus?.addEventListener('click', async () => {
+                    const status = {
+                        id_pedido: e.id,
+                        id_status:  parseInt(idStatus)
+                    }
+                    const response =await homeService.updateStatusOrder('pluspedidos', status);
+                    console.log(response)
+                })
             }
         })
     })

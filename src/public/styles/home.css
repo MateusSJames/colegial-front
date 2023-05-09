@@ -113,26 +113,27 @@ div[id^="order"]:hover {
 #details {
     /* position: absolute; */
     width: 80vw;
-    height: 70vh;
+    height: 85vh;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: end;
-    padding: 2vmax;
+    padding-right: 2vmax;
 }
 
 #grid-details {
     position: absolute;
     visibility: hidden;
-    width: 82vw;
-    height: 50vh;
+    width: 84vw;
+    height: 80vh;
     border: 1px solid black;
     background-color: white;
+    overflow-y: auto;
 }
 
 #header-client {
     background-color: rgb(199, 198, 199);
-    height: 38%;
+    height: 23%;
     display: flex;
     padding: 1vmax;
     justify-content: space-between;
@@ -168,6 +169,27 @@ div[id^="order"]:hover {
 }
 
 #exit-details h2:hover {
+    cursor: pointer;
+}
+
+#fixed-footer {
+    padding: 0 1vmax;
+    height: 17%;
+    width: 100%;
+    background-color: rgb(199, 198, 199);
+    position: absolute;
+    display: flex;
+    align-items: center;
+    bottom: 0;
+}
+
+#btn-update-status {
+    background-color: rgb(199, 198, 199);
+    border: 0;
+    margin-left: 1.5vmax;
+}
+
+#btn-update-status:hover {
     cursor: pointer;
 }
 

@@ -18,4 +18,13 @@ describe('Home', () => {
         const response: any = await homeService.getProductsByOrder('pluspedidos', '22')
         expect(response.status).toEqual(200);
     })
+    it('should update status order', async () => {
+        const settingsService = new HomeService();
+        const status = {
+            id_pedido: 24,
+            id_status: 2
+        }
+        const result: any = await settingsService.updateStatusOrder('pluspedidos', status);
+        expect(result.status).toEqual(201)
+    })
 })
