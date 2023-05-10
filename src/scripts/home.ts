@@ -171,13 +171,23 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[], filter: string)
                                 <th>${formattedProductValue}</th>
                                 <th id="row-solicitado">
                                     ${product.quantidade}
-                                    <span id="arrow-right">&rarr;</span> <!-- seta para a direita -->
+                                    <span id="arrow-right-${product.ordem_prod_serv}">&rarr;</span> <!-- seta para a direita -->
                                 </th>
                                 <th>
                                     <input id="input-atendida-${product.ordem_prod_serv}" value="${product.quantidade_atendida}">
                                 </th>
                             </tr>
                         `;
+                    })
+
+                    products.map((product) => {
+                        const arrowRight = document.getElementById(`arrow-right-${product.ordem_prod_serv}`)
+                        arrowRight?.addEventListener('click', () => {
+                            const inputQtdAtendida = document.getElementById(`input-atendida-${product.ordem_prod_serv}`) as HTMLInputElement
+                            if(inputQtdAtendida) {
+                                inputQtdAtendida.value = product.quantidade.toString();
+                            }
+                        })
                     })
                 }
 
@@ -429,13 +439,22 @@ buttonPedido?.addEventListener('click', async (event) => {
                                 <th>${formattedProductValue}</th>
                                 <th id="row-solicitado">
                                     ${product.quantidade}
-                                    <span id="arrow-right">&rarr;</span> <!-- seta para a direita -->
+                                    <span id="arrow-right-${product.ordem_prod_serv}">&rarr;</span> <!-- seta para a direita -->
                                 </th>
                                 <th>
                                     <input id="input-atendida-${product.ordem_prod_serv}" value="${product.quantidade_atendida}">
                                 </th>
                             </tr>
                         `;
+                    })
+                    products.map((product) => {
+                        const arrowRight = document.getElementById(`arrow-right-${product.ordem_prod_serv}`)
+                        arrowRight?.addEventListener('click', () => {
+                            const inputQtdAtendida = document.getElementById(`input-atendida-${product.ordem_prod_serv}`) as HTMLInputElement
+                            if(inputQtdAtendida) {
+                                inputQtdAtendida.value = product.quantidade.toString();
+                            }
+                        })
                     })
                 }
 

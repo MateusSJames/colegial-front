@@ -209,7 +209,7 @@ div[id^="order"]:hover {
     justify-content: space-between;
 }
 
-#arrow-right:hover {
+span[id^='arrow-right']:hover {
     cursor: pointer;
 }
 
