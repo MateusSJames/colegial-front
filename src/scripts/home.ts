@@ -169,8 +169,13 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[], filter: string)
                                 <th>${product.nome}</th>
                                 <th>${product.complemento}</th>
                                 <th>${formattedProductValue}</th>
-                                <th>${product.quantidade}</th>
-                                <th>${product.quantidade_atendida}</th>
+                                <th id="row-solicitado">
+                                    ${product.quantidade}
+                                    <span id="arrow-right">&rarr;</span> <!-- seta para a direita -->
+                                </th>
+                                <th>
+                                    <input id="input-atendida-${product.ordem_prod_serv}" value="${product.quantidade_atendida}">
+                                </th>
                             </tr>
                         `;
                     })
@@ -422,8 +427,13 @@ buttonPedido?.addEventListener('click', async (event) => {
                                 <th>${product.nome}</th>
                                 <th>${product.complemento}</th>
                                 <th>${formattedProductValue}</th>
-                                <th>${product.quantidade}</th>
-                                <th>${product.quantidade_atendida}</th>
+                                <th id="row-solicitado">
+                                    ${product.quantidade}
+                                    <span id="arrow-right">&rarr;</span> <!-- seta para a direita -->
+                                </th>
+                                <th>
+                                    <input id="input-atendida-${product.ordem_prod_serv}" value="${product.quantidade_atendida}">
+                                </th>
                             </tr>
                         `;
                     })
