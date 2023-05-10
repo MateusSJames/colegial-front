@@ -227,7 +227,23 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[], filter: string)
 
                 const buttonUpdateOrder = document.getElementById('btn-update-order');
                 buttonUpdateOrder?.addEventListener('click', () => {
-                    alert('HELLO WORLD')
+                    const alertContent = document.getElementById('alert-content')
+                    if(alertContent) {
+                        alertContent.style.visibility = 'visible'
+                        products.map(async (product) => {
+                            const inputQtdAtendida = document.getElementById(`input-atendida-${product.ordem_prod_serv}`) as HTMLInputElement
+                            if(inputQtdAtendida) {
+                                const productBody = {
+                                    quantidade_atendida: parseFloat(inputQtdAtendida.value),
+                                    id_pedido: product.id_pedido,
+                                    ordem_prod_serv:  product.ordem_prod_serv
+                                }
+                                await homeService.updateProductByOrder('pluspedidos', productBody)
+                            }
+                        })
+                        alertContent.style.visibility = "hidden"
+                        alert('TUDO CERTO')
+                    }
                 })
             }
         })
@@ -500,7 +516,23 @@ buttonPedido?.addEventListener('click', async (event) => {
 
                 const buttonUpdateOrder = document.getElementById('btn-update-order');
                 buttonUpdateOrder?.addEventListener('click', () => {
-                    alert('HELLO WORLD')
+                    const alertContent = document.getElementById('alert-content')
+                    if(alertContent) {
+                        alertContent.style.visibility = 'visible'
+                        products.map(async (product) => {
+                            const inputQtdAtendida = document.getElementById(`input-atendida-${product.ordem_prod_serv}`) as HTMLInputElement
+                            if(inputQtdAtendida) {
+                                const productBody = {
+                                    quantidade_atendida: parseFloat(inputQtdAtendida.value),
+                                    id_pedido: product.id_pedido,
+                                    ordem_prod_serv:  product.ordem_prod_serv
+                                }
+                                await homeService.updateProductByOrder('pluspedidos', productBody)
+                            }
+                        })
+                        alertContent.style.visibility = "hidden"
+                        alert('TUDO CERTO')
+                    }
                 })
             }
         })
