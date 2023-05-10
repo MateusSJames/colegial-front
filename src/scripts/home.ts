@@ -136,6 +136,9 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[], filter: string)
                         <div id="alert-content">
                             <h3>Atualizando pedido ...</h3>
                         </div>
+                        <button id="btn-update-order">
+                            Salvar
+                        </button>
                     </div> 
                 `
                 const dropDownStatus = document.getElementById("drop-status");
@@ -221,7 +224,11 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[], filter: string)
                         updateList(ordersPendings, listaStatus, filter);
                     }
                 })
-                
+
+                const buttonUpdateOrder = document.getElementById('btn-update-order');
+                buttonUpdateOrder?.addEventListener('click', () => {
+                    alert('HELLO WORLD')
+                })
             }
         })
     })
@@ -405,6 +412,9 @@ buttonPedido?.addEventListener('click', async (event) => {
                         <div id="alert-content">
                             <h3>Atualizando pedido ...</h3>
                         </div>
+                        <button id="btn-update-order">
+                            Salvar
+                        </button>
                     </div> 
                 `
                 const dropDownStatus = document.getElementById("drop-status");
@@ -486,6 +496,11 @@ buttonPedido?.addEventListener('click', async (event) => {
                         }
                         updateList(ordersPendings, listStatus, statusFilter);
                     }   
+                })
+
+                const buttonUpdateOrder = document.getElementById('btn-update-order');
+                buttonUpdateOrder?.addEventListener('click', () => {
+                    alert('HELLO WORLD')
                 })
             }
         })

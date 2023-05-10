@@ -213,6 +213,19 @@ span[id^='arrow-right']:hover {
     cursor: pointer;
 }
 
+#btn-update-order {
+    background-color: grey;
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+    width: 12vw;
+    height: 7vh;
+}
+
+#btn-update-order:hover {
+    cursor: pointer;
+}
+
 input[id^='input-atendida'] {
     background-color: rgb(199, 198, 199);
     margin-left: 1vmax;

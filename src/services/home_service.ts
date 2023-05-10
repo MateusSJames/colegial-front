@@ -5,6 +5,12 @@ interface StatusPayload {
     id_status: number;
 }
 
+interface ProductByOrderPayload {
+    quantidade_atendida: number,
+	id_pedido: number,
+	ordem_prod_serv: number
+}
+
 class HomeService implements IHomeScript{
     async getProductsByOrder<T>(param: T, order: T): Promise<T> {
         try {
@@ -38,8 +44,17 @@ class HomeService implements IHomeScript{
 
     async updateStatusOrder<T>(param: T, order: StatusPayload): Promise<T> {
         try {
-            const loginRequest = await axios.post(`http://localhost:7000/status/${param}`, order);
-            return {status: loginRequest.status, message: loginRequest.data} as T;
+            const updateRequest = await axios.post(`http://localhost:7000/status/${param}`, order);
+            return {status: updateRequest.status, message: updateRequest.data} as T;
+        } catch (error: any) {
+            return {status: error.response.status, message: error.response.statusText} as T;
+        }
+    }
+
+    async updateProductByOrder<T>(param: T, order: ProductByOrderPayload): Promise<T> {
+        try {
+            const updateRequest = await axios.put(`http://localhost:7000/pedido/produto/${param}`, order);
+            return {status: updateRequest.status, message: updateRequest.data} as T;
         } catch (error: any) {
             return {status: error.response.status, message: error.response.statusText} as T;
         }

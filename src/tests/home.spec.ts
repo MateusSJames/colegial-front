@@ -27,4 +27,14 @@ describe('Home', () => {
         const result: any = await settingsService.updateStatusOrder('pluspedidos', status);
         expect(result.status).toEqual(201)
     })
+    it('should update product by order', async () => {
+        const settingsService = new HomeService();
+        const product = {
+            quantidade_atendida: 5,
+            id_pedido: 23,
+            ordem_prod_serv: 4
+        }
+        const result: any = await settingsService.updateProductByOrder('pluspedidos', product);
+        expect(result.status).toEqual(200)
+    })
 })
