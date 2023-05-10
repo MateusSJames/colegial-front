@@ -133,6 +133,9 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[], filter: string)
                         <button id="btn-update-status">
                             <img src="../assets/verificar.png" alt="Logo" id="button-cancel">
                         </button>
+                        <div id="alert-content">
+                            <h3>Atualizando pedido ...</h3>
+                        </div>
                     </div> 
                 `
                 const dropDownStatus = document.getElementById("drop-status");
@@ -184,20 +187,24 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[], filter: string)
                     });
                 }
                 buttonUpdateStatus?.addEventListener('click', async () => {
-                    alert(filter)
                     const status = {
                         id_pedido: e.id,
                         id_status:  parseInt(idStatus)
                     }
-                    await homeService.updateStatusOrder('pluspedidos', status);
-                    const orderUpdateResponse: any = await homeService.getOrdersPendings('pluspedidos', filter)
-                    let ordersPendings: OrderDto[] = orderUpdateResponse.response
-                    const gridDetails = document.getElementById('grid-details');
-                    if(gridDetails) {
-                        gridDetails.style.visibility = "hidden";
-                        gridDetails.innerHTML = '';
+                    const alertContent = document.getElementById('alert-content')
+                    if(alertContent) {
+                        alertContent.style.visibility = 'visible'
+                        await homeService.updateStatusOrder('pluspedidos', status);
+                        const orderUpdateResponse: any = await homeService.getOrdersPendings('pluspedidos', filter)
+                        let ordersPendings: OrderDto[] = orderUpdateResponse.response
+                        const gridDetails = document.getElementById('grid-details');
+                        if(gridDetails) {
+                            gridDetails.style.visibility = "hidden";
+                            alertContent.style.visibility = 'hidden';
+                            gridDetails.innerHTML = '';
+                        }
+                        updateList(ordersPendings, listaStatus, filter);
                     }
-                    updateList(ordersPendings, listaStatus, filter);
                 })
                 
             }
@@ -380,6 +387,9 @@ buttonPedido?.addEventListener('click', async (event) => {
                         <button id="btn-update-status">
                             <img src="../assets/verificar.png" alt="Logo" id="button-cancel">
                         </button>
+                        <div id="alert-content">
+                            <h3>Atualizando pedido ...</h3>
+                        </div>
                     </div> 
                 `
                 const dropDownStatus = document.getElementById("drop-status");
@@ -433,15 +443,20 @@ buttonPedido?.addEventListener('click', async (event) => {
                         id_pedido: e.id,
                         id_status:  parseInt(idStatus)
                     }
-                    await homeService.updateStatusOrder('pluspedidos', status);
-                    const orderUpdateResponse: any = await serviceHome.getOrdersPendings('pluspedidos', statusFilter)
-                    let ordersPendings: OrderDto[] = orderUpdateResponse.response
-                    const gridDetails = document.getElementById('grid-details');
-                    if(gridDetails) {
-                        gridDetails.style.visibility = "hidden";
-                        gridDetails.innerHTML = '';
-                    }
-                    updateList(ordersPendings, listStatus, statusFilter);
+                    const alertContent = document.getElementById('alert-content')
+                    if(alertContent) {
+                        alertContent.style.visibility = 'visible'
+                        await homeService.updateStatusOrder('pluspedidos', status);
+                        const orderUpdateResponse: any = await serviceHome.getOrdersPendings('pluspedidos', statusFilter)
+                        let ordersPendings: OrderDto[] = orderUpdateResponse.response
+                        const gridDetails = document.getElementById('grid-details');
+                        if(gridDetails) {
+                            gridDetails.style.visibility = "hidden";
+                            alertContent.style.visibility = 'hidden';
+                            gridDetails.innerHTML = '';
+                        }
+                        updateList(ordersPendings, listStatus, statusFilter);
+                    }   
                 })
             }
         })

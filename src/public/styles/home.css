@@ -193,6 +193,17 @@ div[id^="order"]:hover {
     cursor: pointer;
 }
 
+#alert-content {
+    border-radius: 20px;
+    width: 30vw;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    color: black;
+}
+
 @media screen and (max-width: 920px) {
 
     div[id^="order"]{
