@@ -122,9 +122,9 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[], filter: string)
                             <tr>
                                 <th>Produto</th>
                                 <th>Complemento</th>
-                                <th>Valor</th>
-                                <th>Solicitada</th>
-                                <th>Atendida</th>
+                                <th id="hd-valor">Valor</th>
+                                <th id="hd-solicitada">Solicitada</th>
+                                <th id="hd-atendida">Atendida</th>
                             </tr>
                         </table>                  
                     </div>
@@ -171,12 +171,12 @@ function updateList(lista: OrderDto[], listaStatus: StatusDto[], filter: string)
                             <tr>
                                 <th>${product.nome}</th>
                                 <th>${product.complemento}</th>
-                                <th>${formattedProductValue}</th>
+                                <th id="value-product">${formattedProductValue}</th>
                                 <th id="row-solicitado">
                                     ${product.quantidade}
                                     <span id="arrow-right-${product.ordem_prod_serv}">&rarr;</span> <!-- seta para a direita -->
                                 </th>
-                                <th>
+                                <th id="th-atendida">
                                     <input id="input-atendida-${product.ordem_prod_serv}" value="${product.quantidade_atendida}">
                                 </th>
                             </tr>
@@ -414,9 +414,9 @@ buttonPedido?.addEventListener('click', async (event) => {
                             <tr>
                                 <th>Produto</th>
                                 <th>Complemento</th>
-                                <th>Valor</th>
-                                <th>Solicitada</th>
-                                <th>Atendida</th>
+                                <th id="hd-valor">Valor</th>
+                                <th id="hd-solicitada">Solicitada</th>
+                                <th id="hd-atendida">Atendida</th>
                             </tr>
                         </table>                  
                     </div>
@@ -462,12 +462,12 @@ buttonPedido?.addEventListener('click', async (event) => {
                             <tr>
                                 <th>${product.nome}</th>
                                 <th>${product.complemento}</th>
-                                <th>${formattedProductValue}</th>
+                                <th id="value-product">${formattedProductValue}</th>
                                 <th id="row-solicitado">
                                     ${product.quantidade}
                                     <span id="arrow-right-${product.ordem_prod_serv}">&rarr;</span> <!-- seta para a direita -->
                                 </th>
-                                <th>
+                                <th id="th-atendida">
                                     <input id="input-atendida-${product.ordem_prod_serv}" value="${product.quantidade_atendida}">
                                 </th>
                             </tr>

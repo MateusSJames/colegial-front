@@ -4,7 +4,8 @@ module.exports = {
   entry: {
     index: './src/scripts/index.ts',
     home: './src/scripts/home.ts',
-    status: './src/scripts/settings/status.ts'
+    status: './src/scripts/settings/status.ts',
+    cadastros: './src/scripts/home.cadastro.ts'
   },
   module: {
     rules: [
