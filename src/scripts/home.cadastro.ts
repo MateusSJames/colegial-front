@@ -21,8 +21,39 @@ interface FirstsFiltersDto {
 interface TablesPriceDto {
     id: number;
     ordem: number;
-    codigo: number;
     nome: string;
+}
+
+interface ClientDto {
+    id: number,
+    ordem: number,
+    codigo: number,
+    email: string,
+    senha: string,
+    fantasia: string,
+    inativo: number,
+    ordem_filial: number,
+    ordem_tabelas_preco: number
+}
+
+interface ProdServDto {
+    id: number,
+    ordem: number,
+    codigo: string,
+    codigo_barras: string,
+    nome: string,
+    inativo: boolean,
+    ordem_classe: number,
+    ordem_subclasse: number,
+    ordem_fabricante: number,
+    unidade: string,
+    tipo: string,
+    web_obs1: string,
+    web_obs2: string,
+    peso_liq: number,
+    peso_bruto: number,
+    qtde_fracionada_casas_decimais: number,
+    colocar_vitrine_loja: boolean
 }
 
 const tablesName: TableNameDto = {
@@ -34,19 +65,106 @@ const tablesName: TableNameDto = {
     "Prod/Serv": "prod_serv"
 }
 
-const typeOfDto: Record<keyof TableNameDto, any> = {
-    Classes: "FirstsFiltersDto",
-    Subclasses: "FirstsFiltersDto",
-    Fabricantes: "FirstsFiltersDto",
-    "Tabelas de preço": "tabelas_preco",
-    Clientes: "cli_for",
-    "Prod/Serv": "prod_serv",
-};  
+function updateList(filter: string, list: any)  {
+    const contentPage = document.getElementById('content-page');
+    if(contentPage) {
+        contentPage.style.overflowY = 'scroll';
+        contentPage.style.width = '100w'
+        contentPage.innerHTML = '';
+        if(filter === 'classes' || filter === 'subclasses' || filter === 'fabricantes') {
+            contentPage.innerHTML += `
+                <table id="table-products">
+                    <tr>
+                        <th>Código</th>
+                        <th>Ordem</th>
+                        <th>${filter}</th>
+                    </tr>
+                </table>`
+            const tableBody = document.getElementById('table-products')
+            if(tableBody) {
+                list.map((e: FirstsFiltersDto) => {
+                    tableBody.innerHTML += `
+                        <tr>
+                            <th>${e.codigo}</th>
+                            <th>${e.ordem}</th>
+                            <th>${e.nome}</th>
+                        </tr>
+                    `
+                })
+            }
+            
+        } else if(filter === 'tabelas_preco') {
+            contentPage.innerHTML += `
+                <table id="table-products">
+                    <tr>
+                        <th>Ordem</th>
+                        <th>$Tabela</th>
+                    </tr>
+                </table>`
+            const tableBody = document.getElementById('table-products')
+            if(tableBody) {
+                list.map((e: TablesPriceDto) => {
+                    tableBody.innerHTML += `
+                        <tr>
+                            <th>${e.ordem}</th>
+                            <th>${e.nome}</th>
+                        </tr>
+                    `
+                })
+            }
+        } else if(filter === 'cli_for'){
+            contentPage.innerHTML += `
+                <table id="table-products">
+                    <tr>
+                        <th>Código</th>
+                        <th>Email</th>
+                        <th>Cliente</th>
+                    </tr>
+                </table>`
+            const tableBody = document.getElementById('table-products')
+            if(tableBody) {
+                list.map((e: ClientDto) => {
+                    tableBody.innerHTML += `
+                        <tr>
+                            <th>${e.codigo}</th>
+                            <th>${e.email}</th>
+                            <th>${e.fantasia}</th>
+                        </tr>
+                    `
+                })
+            }
+        } else {
+            contentPage.innerHTML += `
+                <table id="table-products">
+                    <tr>
+                        <th>Código</th>
+                        <th>Código_Barras</th>
+                        <th>Produto</th>
+                    </tr>
+                </table>`
+            const tableBody = document.getElementById('table-products')
+            if(tableBody) {
+                list.map((e: ProdServDto) => {
+                    tableBody.innerHTML += `
+                        <tr>
+                            <th>${e.codigo}</th>
+                            <th>${e.codigo_barras}</th>
+                            <th>${e.nome}</th>
+                        </tr>
+                    `
+                })
+            }
+        }
+    }
+}
 
 buttonCadastro?.addEventListener('click', () => {
     const filterContent = document.getElementById('filters');
     const contentPage = document.getElementById('content-page');
-
+    const details = document.getElementById('details');
+    if(details) {
+        details.style.display = 'none'
+    }
     if(filterContent != null) {
         filterContent.innerHTML = '';
         filterContent.innerHTML += `
@@ -57,17 +175,6 @@ buttonCadastro?.addEventListener('click', () => {
             <h3 id="filter-table">Clientes</h3>
             <h3 id="filter-table">Prod/Serv</h3>
         `;
-        // listStatus.map((e) => {
-        //     filterContent.innerHTML += `
-        //         <h3 id="filter-status-${e.id}">${e.nome}</h3>
-        //     `;
-        //     if(e.posicao == 0) {
-        //         const firstStatus= document.getElementById(`filter-status-${e.id}`);
-        //         if(firstStatus) {
-        //             firstStatus.style.color = 'white'
-        //         }
-        //     }
-        // })
     }
     if(contentPage) {
         contentPage.innerHTML = '';
@@ -93,14 +200,17 @@ buttonCadastro?.addEventListener('click', () => {
         const tableSelect = tablesName[statusFilter]
         const subscribeService = new CadastroService();
         const tableResponse: any = await subscribeService.getTableValues('pluspedidos', tableSelect);
-        // const orderResponse: any = await serviceHome.getOrdersPendings('pluspedidos', h3.textContent)
-        // let ordersPendings: OrderDto[] = orderResponse.response
-        // const gridDetails = document.getElementById('grid-details');
-        // if(gridDetails) {
-        //     gridDetails.style.visibility = "hidden";
-        //     gridDetails.innerHTML = '';
+        const tableValues: FirstsFiltersDto[] | TablesPriceDto[] | ClientDto[] | ProdServDto[] = tableResponse.response
+
+        // if(tableSelect === 'classes' || tableSelect === 'subclasses' || tableSelect === 'fabricantes') {
+        updateList(tableSelect, tableValues)
+        // } else if(tableSelect === 'tabelas_preco') {
+
+        // } else if(tableSelect === 'cli_for'){
+
+        // } else {
+
         // }
-        // updateList(ordersPendings, listStatus, statusFilter);
       });
     });
 })
