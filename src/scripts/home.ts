@@ -308,7 +308,16 @@ buttonPedido?.addEventListener('click', async (event) => {
             }
         })
     }
+
+    const details = document.getElementById('details');
+    if(details) {
+        details.style.display = 'flex'
+    }
+
     if(contentPage) {
+        contentPage.style.overflowY = 'unset';
+        contentPage.style.width = '82w'
+        contentPage.style.flexDirection = 'row'
         contentPage.innerHTML = '';
         if(ordersPendings.length > 0) {
             ordersPendings.map((e) => {

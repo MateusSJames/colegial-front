@@ -70,13 +70,13 @@ function updateList(filter: string, list: any)  {
     if(contentPage) {
         contentPage.style.overflowY = 'scroll';
         contentPage.style.width = '100w'
+        contentPage.style.flexDirection = 'column'
         contentPage.innerHTML = '';
         if(filter === 'classes' || filter === 'subclasses' || filter === 'fabricantes') {
             contentPage.innerHTML += `
                 <table id="table-products">
                     <tr>
                         <th>Código</th>
-                        <th>Ordem</th>
                         <th>${filter}</th>
                     </tr>
                 </table>`
@@ -86,7 +86,6 @@ function updateList(filter: string, list: any)  {
                     tableBody.innerHTML += `
                         <tr>
                             <th>${e.codigo}</th>
-                            <th>${e.ordem}</th>
                             <th>${e.nome}</th>
                         </tr>
                     `
@@ -98,7 +97,7 @@ function updateList(filter: string, list: any)  {
                 <table id="table-products">
                     <tr>
                         <th>Ordem</th>
-                        <th>$Tabela</th>
+                        <th>Tabela</th>
                     </tr>
                 </table>`
             const tableBody = document.getElementById('table-products')
@@ -117,8 +116,8 @@ function updateList(filter: string, list: any)  {
                 <table id="table-products">
                     <tr>
                         <th>Código</th>
-                        <th>Email</th>
                         <th>Cliente</th>
+                        <th>Email</th>
                     </tr>
                 </table>`
             const tableBody = document.getElementById('table-products')
@@ -127,13 +126,21 @@ function updateList(filter: string, list: any)  {
                     tableBody.innerHTML += `
                         <tr>
                             <th>${e.codigo}</th>
-                            <th>${e.email}</th>
                             <th>${e.fantasia}</th>
+                            <th>${e.email}</th>
                         </tr>
                     `
                 })
             }
         } else {
+            contentPage.innerHTML += `
+                <select id="drop-filter">
+                    <option value="codigo">Código</option>
+                    <option value="codigo_barras">Código de barras</option>
+                    <option value="nome">Nome</option>
+                </select>
+            `
+
             contentPage.innerHTML += `
                 <table id="table-products">
                     <tr>
