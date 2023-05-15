@@ -65,6 +65,11 @@ const tablesName: TableNameDto = {
     "Prod/Serv": "prod_serv"
 }
 
+let number = 1;
+let numberCli = 1;
+let numberTable = 1;
+let numberFilter = 1;
+
 function updateList(filter: string, list: any)  {
     const contentPage = document.getElementById('content-page');
     if(contentPage) {
@@ -73,6 +78,18 @@ function updateList(filter: string, list: any)  {
         contentPage.style.flexDirection = 'column'
         contentPage.innerHTML = '';
         if(filter === 'classes' || filter === 'subclasses' || filter === 'fabricantes') {
+            
+            contentPage.innerHTML += `
+                <div id="section-pages">
+                    <button id="btn-back-page">
+                        <img src="../assets/seta-esquerda-paginacao.png" alt="return" id="page-next">
+                    </button>
+                    <button id="btn-next-page">
+                        <img src="../assets/seta-direita.png" alt="next" id="page-back">
+                    </button>
+                </div>
+            `
+            
             contentPage.innerHTML += `
                 <table id="table-products">
                     <tr>
@@ -91,8 +108,50 @@ function updateList(filter: string, list: any)  {
                     `
                 })
             }
+
+            const buttonNextPage = document.getElementById('btn-next-page')
+            buttonNextPage?.addEventListener('click', async () => {
+                numberFilter += 1;
+                const subscribeService = new CadastroService();
+                const tableResponse: any = await subscribeService.getTableValues('pluspedidos', filter, numberFilter.toString());
+                if(tableResponse.status == 200) {
+                    const tableValues: FirstsFiltersDto[] | TablesPriceDto[] | ClientDto[] | ProdServDto[] = tableResponse.response
+        
+                    updateList(filter, tableValues)
+                } else {
+                    updateList(filter, [])
+                }
+            })
+
+            const buttonBackPage = document.getElementById('btn-back-page')
+            buttonBackPage?.addEventListener('click', async () => {
+                if(numberFilter > 1) {
+                    numberFilter -= 1;
+                }
+                const subscribeService = new CadastroService();
+                const tableResponse: any = await subscribeService.getTableValues('pluspedidos', filter, numberFilter.toString());
+                if(tableResponse.status == 200) {
+                    const tableValues: FirstsFiltersDto[] | TablesPriceDto[] | ClientDto[] | ProdServDto[] = tableResponse.response
+        
+                    updateList(filter, tableValues)
+                } else {
+                    updateList(filter, [])
+                }
+            })
             
         } else if(filter === 'tabelas_preco') {
+
+            contentPage.innerHTML += `
+                <div id="section-pages">
+                    <button id="btn-back-page">
+                        <img src="../assets/seta-esquerda-paginacao.png" alt="return" id="page-next">
+                    </button>
+                    <button id="btn-next-page">
+                        <img src="../assets/seta-direita.png" alt="next" id="page-back">
+                    </button>
+                </div>
+            `
+
             contentPage.innerHTML += `
                 <table id="table-products">
                     <tr>
@@ -111,7 +170,49 @@ function updateList(filter: string, list: any)  {
                     `
                 })
             }
+
+            const buttonNextPage = document.getElementById('btn-next-page')
+            buttonNextPage?.addEventListener('click', async () => {
+                numberTable += 1;
+                const subscribeService = new CadastroService();
+                const tableResponse: any = await subscribeService.getTableValues('pluspedidos', 'tabelas_preco', numberTable.toString());
+                if(tableResponse.status == 200) {
+                    const tableValues: FirstsFiltersDto[] | TablesPriceDto[] | ClientDto[] | ProdServDto[] = tableResponse.response
+        
+                    updateList('tabelas_preco', tableValues)
+                } else {
+                    updateList('tabelas_preco', [])
+                }
+            })
+
+            const buttonBackPage = document.getElementById('btn-back-page')
+            buttonBackPage?.addEventListener('click', async () => {
+                if(numberTable > 1) {
+                    numberTable -= 1;
+                }
+                const subscribeService = new CadastroService();
+                const tableResponse: any = await subscribeService.getTableValues('pluspedidos', 'tabelas_preco', numberTable.toString());
+                if(tableResponse.status == 200) {
+                    const tableValues: FirstsFiltersDto[] | TablesPriceDto[] | ClientDto[] | ProdServDto[] = tableResponse.response
+        
+                    updateList('tabelas_preco', tableValues)
+                } else {
+                    updateList('tabelas_preco', [])
+                }
+            })
         } else if(filter === 'cli_for'){
+            
+            contentPage.innerHTML += `
+                <div id="section-pages">
+                    <button id="btn-back-page">
+                        <img src="../assets/seta-esquerda-paginacao.png" alt="return" id="page-next">
+                    </button>
+                    <button id="btn-next-page">
+                        <img src="../assets/seta-direita.png" alt="next" id="page-back">
+                    </button>
+                </div>
+            `
+            
             contentPage.innerHTML += `
                 <table id="table-products">
                     <tr>
@@ -132,13 +233,59 @@ function updateList(filter: string, list: any)  {
                     `
                 })
             }
+
+            const buttonNextPage = document.getElementById('btn-next-page')
+            buttonNextPage?.addEventListener('click', async () => {
+                numberCli += 1;
+                const subscribeService = new CadastroService();
+                const tableResponse: any = await subscribeService.getTableValues('pluspedidos', 'cli_for', numberCli.toString());
+                if(tableResponse.status == 200) {
+                    const tableValues: FirstsFiltersDto[] | TablesPriceDto[] | ClientDto[] | ProdServDto[] = tableResponse.response
+        
+                    updateList('cli_for', tableValues)
+                } else {
+                    updateList('cli_for', [])
+                }
+            })
+
+            const buttonBackPage = document.getElementById('btn-back-page')
+            buttonBackPage?.addEventListener('click', async () => {
+                if(numberCli > 1) {
+                    numberCli -= 1;
+                }
+                const subscribeService = new CadastroService();
+                const tableResponse: any = await subscribeService.getTableValues('pluspedidos', 'cli_for', numberCli.toString());
+                if(tableResponse.status == 200) {
+                    const tableValues: FirstsFiltersDto[] | TablesPriceDto[] | ClientDto[] | ProdServDto[] = tableResponse.response
+        
+                    updateList('cli_for', tableValues)
+                } else {
+                    updateList('cli_for', [])
+                }
+            })
         } else {
+            let filterLabel = 'codigo'
             contentPage.innerHTML += `
-                <select id="drop-filter">
-                    <option value="codigo">Código</option>
-                    <option value="codigo_barras">Código de barras</option>
-                    <option value="nome">Nome</option>
-                </select>
+                <div id="filters-prod-serv">
+                    <select id="drop-filter">
+                        <option value="codigo">Código</option>
+                        <option value="codigo_barras">Código de barras</option>
+                        <option value="nome">Nome</option>
+                    </select>
+                    <div id="section-filter">
+                        <input type="text" id="input-filter" placeholder="Digite seu ${filterLabel}">
+                        <button type="button" id="btn-filter-prod">Buscar</button> 
+                    </div>               
+                </div>
+
+                <div id="section-pages">
+                    <button id="btn-back-page">
+                        <img src="../assets/seta-esquerda-paginacao.png" alt="return" id="page-next">
+                    </button>
+                    <button id="btn-next-page">
+                        <img src="../assets/seta-direita.png" alt="next" id="page-back">
+                    </button>
+                </div>
             `
 
             contentPage.innerHTML += `
@@ -151,16 +298,84 @@ function updateList(filter: string, list: any)  {
                 </table>`
             const tableBody = document.getElementById('table-products')
             if(tableBody) {
-                list.map((e: ProdServDto) => {
-                    tableBody.innerHTML += `
-                        <tr>
-                            <th>${e.codigo}</th>
-                            <th>${e.codigo_barras}</th>
-                            <th>${e.nome}</th>
-                        </tr>
-                    `
-                })
+                if(list) {
+                    list.map((e: ProdServDto) => {
+                        tableBody.innerHTML += `
+                            <tr>
+                                <th>${e.codigo}</th>
+                                <th>${e.codigo_barras}</th>
+                                <th>${e.nome}</th>
+                            </tr>
+                        `
+                    })
+                } else {
+                    tableBody.innerHTML += `<h2>Nenhum produto foi encontrado</h2>`
+                }
             }
+
+            const buttonFilter = document.getElementById('btn-filter-prod')
+            buttonFilter?.addEventListener('click', async () => {
+                const tableSelect = 'prod_serv'
+                const inputFieldFilter = document.getElementById('input-filter') as HTMLInputElement;
+                if(inputFieldFilter) {
+                    const subscribeService = new CadastroService();
+                    const tableResponse: any = await subscribeService.getTableValues('pluspedidos', tableSelect, '1', filterLabel, inputFieldFilter.value);
+                    if(tableResponse.status == 200) {
+                        const tableValues: FirstsFiltersDto[] | TablesPriceDto[] | ClientDto[] | ProdServDto[] = tableResponse.response
+            
+                        updateList(tableSelect, tableValues)
+                    } else {
+                        updateList(tableSelect, [])
+                    }
+                }
+            })
+
+            const dropDownValue = document.getElementById('drop-filter') as HTMLSelectElement;
+            if(dropDownValue) {
+                dropDownValue.addEventListener('change', () => {
+                    const selectedOption: any = dropDownValue.value;
+                    filterLabel = selectedOption
+                    const inputFieldFilter = document.getElementById('input-filter') as HTMLInputElement;
+                    if(inputFieldFilter) {
+                        if(filterLabel == 'codigo_barras') {
+                            inputFieldFilter.placeholder = `Digite o código de barras`
+                        } else {
+                            inputFieldFilter.placeholder = `Digite o ${selectedOption}`
+                        }
+
+                    }
+                });
+            }
+
+            const buttonNextPage = document.getElementById('btn-next-page')
+            buttonNextPage?.addEventListener('click', async () => {
+                number += 1;
+                const subscribeService = new CadastroService();
+                const tableResponse: any = await subscribeService.getTableValues('pluspedidos', 'prod_serv', number.toString());
+                if(tableResponse.status == 200) {
+                    const tableValues: FirstsFiltersDto[] | TablesPriceDto[] | ClientDto[] | ProdServDto[] = tableResponse.response
+        
+                    updateList('prod_serv', tableValues)
+                } else {
+                    updateList('prod_serv', [])
+                }
+            })
+
+            const buttonBackPage = document.getElementById('btn-back-page')
+            buttonBackPage?.addEventListener('click', async () => {
+                if(number > 1) {
+                    number -= 1;
+                }
+                const subscribeService = new CadastroService();
+                const tableResponse: any = await subscribeService.getTableValues('pluspedidos', 'prod_serv', number.toString());
+                if(tableResponse.status == 200) {
+                    const tableValues: FirstsFiltersDto[] | TablesPriceDto[] | ClientDto[] | ProdServDto[] = tableResponse.response
+        
+                    updateList('prod_serv', tableValues)
+                } else {
+                    updateList('prod_serv', [])
+                }
+            })
         }
     }
 }
@@ -206,18 +421,14 @@ buttonCadastro?.addEventListener('click', () => {
         }
         const tableSelect = tablesName[statusFilter]
         const subscribeService = new CadastroService();
-        const tableResponse: any = await subscribeService.getTableValues('pluspedidos', tableSelect);
+        const tableResponse: any = await subscribeService.getTableValues('pluspedidos', tableSelect, '1');
         const tableValues: FirstsFiltersDto[] | TablesPriceDto[] | ClientDto[] | ProdServDto[] = tableResponse.response
 
-        // if(tableSelect === 'classes' || tableSelect === 'subclasses' || tableSelect === 'fabricantes') {
+        number = 1;
+        numberCli = 1;
+        numberTable = 1;
+        numberFilter = 1;
         updateList(tableSelect, tableValues)
-        // } else if(tableSelect === 'tabelas_preco') {
-
-        // } else if(tableSelect === 'cli_for'){
-
-        // } else {
-
-        // }
       });
     });
 })
