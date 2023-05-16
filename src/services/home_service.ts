@@ -12,6 +12,15 @@ interface ProductByOrderPayload {
 }
 
 class HomeService implements IHomeScript{
+    async getOrdersByFilter<T>(param: T, field: T, value: T): Promise<T> {
+        try {
+            const statusRequest = await axios.get(`http://localhost:7000/pedido/filters/${param}?field=${field}&value=${value}`);
+            const statusResponse = {status: statusRequest.status, response: statusRequest.data} as T;
+            return statusResponse;
+        } catch (error: any) {
+            return {status: error.response.status, message: error.response.statusText} as T;
+        }
+    }
     async getProductsByOrder<T>(param: T, order: T): Promise<T> {
         try {
             const statusRequest = await axios.get(`http://localhost:7000/pedido/produtos/${param}/${order}`);

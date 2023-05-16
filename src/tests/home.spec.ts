@@ -37,4 +37,9 @@ describe('Home', () => {
         const result: any = await settingsService.updateProductByOrder('pluspedidos', product);
         expect(result.status).toEqual(200)
     })
+    it('should get order by filters', async () => {
+        const homeService = new HomeService();
+        const response: any = await homeService.getOrdersByFilter('pluspedidos', 'cliente', 'Mateus')
+        expect(response.status).toEqual(200);
+    })
 })

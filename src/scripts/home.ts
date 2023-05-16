@@ -366,6 +366,21 @@ buttonPedido?.addEventListener('click', async (event) => {
     statusFilter = listStatus[0].nome;
     h3List?.forEach((h3) => {
       h3.addEventListener('click', async () => {
+        
+        const contentPage = document.getElementById('content-page');
+        
+        if(contentPage) {
+            contentPage.style.overflowY = 'unset';
+            contentPage.style.width = '82w'
+            contentPage.style.flexDirection = 'row'
+            contentPage.innerHTML = ''
+        }
+
+        const details = document.getElementById('details');
+        if(details) {
+            details.style.display = 'flex'
+        }
+
         const allH3s = document.querySelectorAll('#filters h3'); // Seleciona todos os h3s dentro da div filters
         allH3s.forEach(h3Element => {
             if (h3Element instanceof HTMLHeadingElement) {
