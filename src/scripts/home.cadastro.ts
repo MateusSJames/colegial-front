@@ -202,7 +202,20 @@ function updateList(filter: string, list: any)  {
             })
         } else if(filter === 'cli_for'){
             
+            let filterLabel = 'codigo'
+
             contentPage.innerHTML += `
+                <div id="filters-prod-serv">
+                    <select id="drop-filter">
+                        <option value="codigo">Código</option>
+                        <option value="email">Email</option>
+                        <option value="fantasia">Nome</option>
+                    </select>
+                    <div id="section-filter">
+                        <input type="text" id="input-filter" placeholder="Digite seu ${filterLabel}">
+                        <button type="button" id="btn-filter-prod">Buscar</button> 
+                    </div>               
+                </div>
                 <div id="section-pages">
                     <button id="btn-back-page">
                         <img src="../assets/seta-esquerda-paginacao.png" alt="return" id="page-next">
@@ -232,6 +245,40 @@ function updateList(filter: string, list: any)  {
                         </tr>
                     `
                 })
+            }
+
+            const buttonFilter = document.getElementById('btn-filter-prod')
+            buttonFilter?.addEventListener('click', async () => {
+                const tableSelect = 'cli_for'
+                const inputFieldFilter = document.getElementById('input-filter') as HTMLInputElement;
+                if(inputFieldFilter) {
+                    const subscribeService = new CadastroService();
+                    const tableResponse: any = await subscribeService.getTableValues('pluspedidos', tableSelect, '1', filterLabel, inputFieldFilter.value);
+                    if(tableResponse.status == 200) {
+                        const tableValues: FirstsFiltersDto[] | TablesPriceDto[] | ClientDto[] | ProdServDto[] = tableResponse.response
+            
+                        updateList(tableSelect, tableValues)
+                    } else {
+                        updateList(tableSelect, [])
+                    }
+                }
+            })
+
+            const dropDownValue = document.getElementById('drop-filter') as HTMLSelectElement;
+            if(dropDownValue) {
+                dropDownValue.addEventListener('change', () => {
+                    const selectedOption: any = dropDownValue.value;
+                    filterLabel = selectedOption
+                    const inputFieldFilter = document.getElementById('input-filter') as HTMLInputElement;
+                    if(inputFieldFilter) {
+                        if(filterLabel == 'fantasia') {
+                            inputFieldFilter.placeholder = `Digite o nome`
+                        } else {
+                            inputFieldFilter.placeholder = `Digite o ${selectedOption}`
+                        }
+
+                    }
+                });
             }
 
             const buttonNextPage = document.getElementById('btn-next-page')
