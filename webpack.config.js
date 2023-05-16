@@ -5,7 +5,8 @@ module.exports = {
     index: './src/scripts/index.ts',
     home: './src/scripts/home.ts',
     status: './src/scripts/settings/status.ts',
-    cadastros: './src/scripts/home.cadastro.ts'
+    cadastros: './src/scripts/home.cadastro.ts',
+    filtros: './src/scripts/home.filters.ts'
   },
   module: {
     rules: [

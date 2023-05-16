@@ -1,5 +1,6 @@
 import { HomeService } from '../services/home_service'
 import { SettingsService } from '../services/settings_service'
+import { filterOrders } from '../scripts/home.filters';
 
 const buttonParam = document.getElementById('parametros')
 const buttonPedido = document.getElementById('pedidos')
@@ -296,6 +297,11 @@ buttonPedido?.addEventListener('click', async (event) => {
 
     if(filterContent != null) {
         filterContent.innerHTML = '';
+        filterContent.innerHTML += `
+            <button id="filter-status-search">
+                <img src="../assets/marketing-de-busca.png" alt="return" id="search-order">
+            </button>
+        `;
         listStatus.map((e) => {
             filterContent.innerHTML += `
                 <h3 id="filter-status-${e.id}">${e.nome}</h3>
@@ -307,6 +313,9 @@ buttonPedido?.addEventListener('click', async (event) => {
                 }
             }
         })
+
+        const buttonFiltersOrder = document.getElementById('filter-status-search');
+        buttonFiltersOrder?.addEventListener('click', filterOrders);
     }
 
     const details = document.getElementById('details');
