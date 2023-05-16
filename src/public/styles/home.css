@@ -379,6 +379,21 @@ input[id^='input-atendida'] {
     padding: 1vmax;
 }
 
+#show-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button[id^="btn-show-details"]{
+    background-color: white;
+    border: 0;
+}
+
+button[id^="btn-show-details"]:hover{
+    cursor: pointer;
+}
+
 @media screen and (max-width: 920px) {
 
     div[id^="order"]{
