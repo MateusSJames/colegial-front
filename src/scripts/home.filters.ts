@@ -74,11 +74,19 @@ async function filterOrders() {
                     </select>
                 </div>
                 <div id="section-filter-order">
-                    <input type="text" id="input-filter-order" placeholder="Digite o ${filterLabel}">
-                    <select id="drop-status-order">
-                        <option value="todos">Todos</option>
-                    </select>
-                    <button type="button" id="btn-filter-order">Buscar</button> 
+                    <div id="sect-input-filter">
+                        <h5>Informe o pedido:</h5>
+                        <input type="text" id="input-filter-order" placeholder="Digite o ${filterLabel}">
+                    </div>
+                    <div id="sect-st-filter">
+                        <h5>Status:</h5>
+                        <select id="drop-status-order">
+                            <option value="todos">Todos</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="button" id="btn-filter-order">Buscar</button> 
+                    </div>
                 </div>               
             </div>
         `;

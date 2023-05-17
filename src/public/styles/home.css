@@ -353,18 +353,20 @@ input[id^='input-atendida'] {
 #drop-filter-order {
     width: 20vw;
     height: 5vh;
+    margin-top: 0.5vmax;
 }
 
 #drop-status-order {
     width: 10vw;
     height: 5vh;
-    margin-left: 2vmax;
+    margin-top: 0.5vmax;
 }
 
 #input-filter-order {
     width: 30vw;
     height: 5vh;
     padding: 1vmax;
+    margin-top: 0.5vmax;
 }
 
 #btn-filter-order {
@@ -372,6 +374,7 @@ input[id^='input-atendida'] {
     width: 10vw;
     height: 5vh;
     font-weight: bold;
+    margin-top: 1.5vmax;
     border-radius: 20px;
     margin-left: 2vmax;
 }
@@ -408,10 +411,20 @@ input[id^='input-atendida'] {
 }
 
 #section-filter-order {
-    /* background-color: red; */
-    width: 55vw;
-    flex-direction: row;
+    width: 100%;
+    display: flex;
     justify-content: space-between;
+    padding: 0 1vmax;
+}
+
+#sect-st-filter {
+    display: flex;
+    flex-direction: column;
+}
+
+#sect-input-filter {
+    display: flex;
+    flex-direction: column;
 }
 
 button[id^="btn-show-details"]{
