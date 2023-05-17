@@ -12,9 +12,9 @@ interface ProductByOrderPayload {
 }
 
 class HomeService implements IHomeScript{
-    async getOrdersByFilter<T>(param: T, field: T, value: T): Promise<T> {
+    async getOrdersByFilter<T>(param: T, field: T, value: T, status: T): Promise<T> {
         try {
-            const statusRequest = await axios.get(`http://localhost:7000/pedido/filters/${param}?field=${field}&value=${value}`);
+            const statusRequest = await axios.get(`http://localhost:7000/pedido/filters/${param}/${status}?field=${field}&value=${value}`);
             const statusResponse = {status: statusRequest.status, response: statusRequest.data} as T;
             return statusResponse;
         } catch (error: any) {

@@ -39,7 +39,7 @@ describe('Home', () => {
     })
     it('should get order by filters', async () => {
         const homeService = new HomeService();
-        const response: any = await homeService.getOrdersByFilter('pluspedidos', 'cliente', 'Mateus')
+        const response: any = await homeService.getOrdersByFilter('pluspedidos', 'cliente', 'Mateus', 'todos')
         expect(response.status).toEqual(200);
     })
 })

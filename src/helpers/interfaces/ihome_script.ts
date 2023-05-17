@@ -4,5 +4,5 @@ interface IHomeScript {
     getProductsByOrder<T>(param: T, order: T): Promise<T>
     updateStatusOrder<T>(param: T, order: Object): Promise<T>
     updateProductByOrder<T>(param: T, order: Object): Promise<T>
-    getOrdersByFilter<T>(param:T, field:T, value: T): Promise<T>
+    getOrdersByFilter<T>(param:T, field:T, value: T, status:T): Promise<T>
 }

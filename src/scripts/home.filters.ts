@@ -49,7 +49,7 @@ interface OrderDto {
 	total: number
 }
 
-function filterOrders() {
+async function filterOrders() {
     const contentPage = document.getElementById('content-page');
     const details = document.getElementById('details');
     
@@ -60,18 +60,24 @@ function filterOrders() {
     if(contentPage) {
         contentPage.style.overflowY = 'scroll';
         contentPage.style.flexDirection = 'column'
-        let filterLabel = 'codigo'
+        let filterLabel = 'pedido online'
+        let filterStatus = 'todos'
         contentPage.innerHTML = '';
         contentPage.innerHTML += `
             <div id="filters-orders-page">
-                <select id="drop-filter-order">
-                    <option value="codigo">Código</option>
-                    <option value="sequencia">Sequência</option>
-                    <option value="status">Status</option>
-                    <option value="cliente">Cliente</option>
-                </select>
+                <div>
+                    <h5>Buscar pedido por:</h5>
+                    <select id="drop-filter-order">
+                        <option value="codigo">Pedido online</option>
+                        <option value="sequencia">Sequência</option>
+                        <option value="cliente">Cliente</option>
+                    </select>
+                </div>
                 <div id="section-filter-order">
-                    <input type="text" id="input-filter" placeholder="Digite o ${filterLabel}">
+                    <input type="text" id="input-filter-order" placeholder="Digite o ${filterLabel}">
+                    <select id="drop-status-order">
+                        <option value="todos">Todos</option>
+                    </select>
                     <button type="button" id="btn-filter-order">Buscar</button> 
                 </div>               
             </div>
@@ -86,14 +92,28 @@ function filterOrders() {
                     <th>Cliente</th>
                 </tr>
             </table>`
+        
+        const serviceStatus = new SettingsService();
+                        
+        const statusResponse: any = await serviceStatus.getStatusList('pluspedidos')
+        let listStatus: StatusDto[] = statusResponse.response
+
+        const dropDownStatus = document.getElementById("drop-status-order");
+            if(dropDownStatus) {
+                listStatus.map((st) => {
+                    dropDownStatus.innerHTML += `
+                        <option value="${st.nome}">${st.nome}</option>
+                    `
+            })
+        }
 
         const buttonFilter = document.getElementById('btn-filter-order')
         buttonFilter?.addEventListener('click', async () => {
 
-            const inputFieldFilter = document.getElementById('input-filter') as HTMLInputElement;
+            const inputFieldFilter = document.getElementById('input-filter-order') as HTMLInputElement;
             if(inputFieldFilter) {
                 const homeService = new HomeService();
-                const homeResponse: any = await homeService.getOrdersByFilter('pluspedidos', filterLabel, inputFieldFilter.value);
+                const homeResponse: any = await homeService.getOrdersByFilter('pluspedidos', filterLabel, inputFieldFilter.value, filterStatus);
                 if(homeResponse.status == 200) {
                     const orders: FilterOrderDto[] = homeResponse.response
                     const tableBody = document.getElementById('table-orders')
@@ -174,10 +194,21 @@ function filterOrders() {
                 if(inputFieldFilter) {
                     if(filterLabel == 'sequencia') {
                         inputFieldFilter.placeholder = `Digite a sequência`
+                    } else if(filterLabel == 'codigo') {
+                        inputFieldFilter.placeholder = "Digite o pedido online"
                     } else {
                         inputFieldFilter.placeholder = `Digite o ${selectedOption}`
                     }
                 }
+            });
+        }
+
+        const dropDownStatusValue = document.getElementById('drop-status-order') as HTMLSelectElement;
+        if(dropDownStatusValue) {
+            dropDownStatusValue.addEventListener('change', () => {
+                const selectedOption: any = dropDownStatusValue.value;
+                filterStatus = selectedOption
+                alert(filterStatus)
             });
         }
     }

@@ -355,6 +355,18 @@ input[id^='input-atendida'] {
     height: 5vh;
 }
 
+#drop-status-order {
+    width: 10vw;
+    height: 5vh;
+    margin-left: 2vmax;
+}
+
+#input-filter-order {
+    width: 30vw;
+    height: 5vh;
+    padding: 1vmax;
+}
+
 #btn-filter-order {
     background-color: rgb(199, 198, 199);
     width: 10vw;
@@ -383,6 +395,23 @@ input[id^='input-atendida'] {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+#sect-status-header {
+    background-color: aquamarine;
+    width: 10vw;
+}
+
+#sect-input-header {
+    background-color: blue;
+    width: 30vw;
+}
+
+#section-filter-order {
+    /* background-color: red; */
+    width: 55vw;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 button[id^="btn-show-details"]{
