@@ -216,7 +216,6 @@ async function filterOrders() {
             dropDownStatusValue.addEventListener('change', () => {
                 const selectedOption: any = dropDownStatusValue.value;
                 filterStatus = selectedOption
-                alert(filterStatus)
             });
         }
     }

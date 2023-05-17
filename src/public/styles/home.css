@@ -357,13 +357,13 @@ input[id^='input-atendida'] {
 }
 
 #drop-status-order {
-    width: 10vw;
+    width: 20vw;
     height: 5vh;
     margin-top: 0.5vmax;
 }
 
 #input-filter-order {
-    width: 30vw;
+    width: 22vw;
     height: 5vh;
     padding: 1vmax;
     margin-top: 0.5vmax;
