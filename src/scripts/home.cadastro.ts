@@ -55,7 +55,8 @@ interface ProdServDto {
     qtde_fracionada_casas_decimais: number,
     colocar_vitrine_loja: boolean,
     nome_classe: string,
-    nome_subclasse: string
+    nome_subclasse: string,
+    nome_fabricante: string
 }
 
 const tablesName: TableNameDto = {
@@ -345,6 +346,7 @@ function updateList(filter: string, list: any)  {
                         <th>Produto</th>
                         <th>Classe</th>
                         <th>Subclasse</th>
+                        <th>Fabricante</th>
                     </tr>
                 </table>`
             const tableBody = document.getElementById('table-products')
@@ -358,6 +360,7 @@ function updateList(filter: string, list: any)  {
                                 <th>${e.nome}</th>
                                 <th>${e.nome_classe}</th>
                                 <th>${e.nome_subclasse}</th>
+                                <th>${e.nome_fabricante}</th>
                             </tr>
                         `
                     })
