@@ -239,7 +239,15 @@ async function showDetailsGridOfOrder(pedido: FilterOrderDto, listStatus: Status
                 <div id="dates-order">
                     <h3>Cliente: ${client.fantasia}</h3>
                     <h5>Data: ${date}</h5>
-                    <h5>Pedido:  ${pedido.id}</h5>
+                    <div id="section-sequence-shop">
+                        <h5>Pedido:  ${pedido.id}</h5>
+                        <div id="sequence-shop">
+                            <h5>Sequencia:  </h5>
+                            <input id="sequence-shop-order" value="${pedido.sequencia_shop}">
+                            <button id="save-sequence">Salvar sequência</button>
+                            <h5 id="status-sequence">Enviando sequência...</h5>
+                        </div>
+                    </div>
                     <h5>Valor: ${value}</h5>
                 </div>
             </div>
@@ -388,6 +396,24 @@ async function showDetailsGridOfOrder(pedido: FilterOrderDto, listStatus: Status
                 alertContent.style.visibility = "hidden"
                 alert('ATUALIZAÇÃO REGISTRADA')
             }
+        })
+
+        const buttonSaveSequence = document.getElementById('save-sequence')
+
+        buttonSaveSequence?.addEventListener('click', async () => {
+            const statusSequence = document.getElementById('status-sequence')
+            const inputSequence = document.getElementById('sequence-shop-order') as HTMLInputElement
+            const order = {
+                id: pedido.id,
+                sequencia_shop: Number.parseInt(inputSequence.value)
+            }
+            if(statusSequence) {
+                statusSequence.style.visibility = "visible";
+                await homeService.updateOrder('pluspedidos', order)
+                statusSequence.textContent = 'Sequência enviada'
+                statusSequence.style.visibility = "hidden";
+            }
+            
         })
     }
 }

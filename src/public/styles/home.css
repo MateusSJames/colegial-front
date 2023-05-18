@@ -427,6 +427,41 @@ input[id^='input-atendida'] {
     flex-direction: column;
 }
 
+#section-sequence-shop {
+    display: flex;
+    width: 60vw;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#sequence-shop {
+    display: flex;
+    width: 50vw;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#sequence-shop-order {
+    font-weight: bold;
+    padding: 0 0.5vmax;
+}
+
+#save-sequence {
+    padding: 0.3vmax;
+    background-color: grey;
+    color: white;
+    font-weight: bold;
+    border: 1px solid black;
+}
+
+#save-sequence:hover {
+    cursor: pointer;
+}
+
+#status-sequence {
+    visibility: hidden;
+}
+
 button[id^="btn-show-details"]{
     background-color: white;
     border: 0;

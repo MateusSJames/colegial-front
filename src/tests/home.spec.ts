@@ -42,4 +42,13 @@ describe('Home', () => {
         const response: any = await homeService.getOrdersByFilter('pluspedidos', 'cliente', 'Mateus', 'todos')
         expect(response.status).toEqual(200);
     })
+    it('should update sequence shop by order', async () => {
+        const homeService = new HomeService();
+        const order = {
+            id: 24,
+            sequencia_shop: 123
+        }
+        const response: any = await homeService.updateOrder('pluspedidos', order);
+        expect(response.status).toEqual(200);
+    })
 })
