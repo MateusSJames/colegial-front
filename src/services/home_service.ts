@@ -1,63 +1,22 @@
 import axios from 'axios';
 
-interface StatusPayload {
-    id_pedido: number;
-    id_status: number;
+interface StudentPayload {
+    codigo: number,
+	nome: string,
+	email: string,
+	idade: number
 }
 
-interface ProductByOrderPayload {
-    quantidade_atendida: number,
-	id_pedido: number,
-	ordem_prod_serv: number
-}
-
-interface OrderPayload {
-    id: number,
-    sequencia_shop: number
+interface StudentGradePayload {
+    id_aluno: number,
+    id_materia: number,
+    nota: number
 }
 
 class HomeService implements IHomeScript{
-    async updateOrder<T>(param: T, order: OrderPayload): Promise<T> {
+    async getStudents<T>(): Promise<T> {
         try {
-            const updateRequest = await axios.put(`http://localhost:7000/pedido/sequencia/${param}`, order);
-            return {status: updateRequest.status, message: updateRequest.data} as T;
-        } catch (error: any) {
-            return {status: error.response.status, message: error.response.statusText} as T;
-        }
-    }
-    
-    async getOrdersByFilter<T>(param: T, field: T, value: T, status: T): Promise<T> {
-        try {
-            const statusRequest = await axios.get(`http://localhost:7000/pedido/filters/${param}/${status}?field=${field}&value=${value}`);
-            const statusResponse = {status: statusRequest.status, response: statusRequest.data} as T;
-            return statusResponse;
-        } catch (error: any) {
-            return {status: error.response.status, message: error.response.statusText} as T;
-        }
-    }
-    async getProductsByOrder<T>(param: T, order: T): Promise<T> {
-        try {
-            const statusRequest = await axios.get(`http://localhost:7000/pedido/produtos/${param}/${order}`);
-            const statusResponse = {status: statusRequest.status, response: statusRequest.data} as T;
-            return statusResponse;
-        } catch (error: any) {
-            return {status: error.response.status, message: error.response.statusText} as T;
-        }
-    }
-    
-    async getClientByOrder<T>(param: T, order: T): Promise<T> {
-        try {
-            const statusRequest = await axios.get(`http://localhost:7000/cliente/dados/${param}/${order}`);
-            const statusResponse = {status: statusRequest.status, response: statusRequest.data} as T;
-            return statusResponse;
-        } catch (error: any) {
-            return {status: error.response.status, message: error.response.statusText} as T;
-        }
-    }
-    
-    async getOrdersPendings<T>(param: T, name: T): Promise<T> {
-        try {
-            const statusRequest = await axios.get(`http://localhost:7000/pedido/pendentes/${param}?name=${name}`);
+            const statusRequest = await axios.get(`http://localhost:3000/students`);
             const statusResponse = {status: statusRequest.status, response: statusRequest.data} as T;
             return statusResponse;
         } catch (error: any) {
@@ -65,24 +24,45 @@ class HomeService implements IHomeScript{
         }
     }
 
-    async updateStatusOrder<T>(param: T, order: StatusPayload): Promise<T> {
+    async saveGradesStudent<T>(grade: StudentGradePayload): Promise<T> {
         try {
-            const updateRequest = await axios.post(`http://localhost:7000/status/${param}`, order);
-            return {status: updateRequest.status, message: updateRequest.data} as T;
+            const postRequest = await axios.post(`http://localhost:3000/grade/create`, grade);
+            return {status: postRequest.status, message: postRequest.data} as T;
+        } catch (error: any) {
+            console.log(error)
+            return {status: error.response.status, message: error.response.statusText} as T;
+        }
+    }
+
+    async getStudentByGrade<T>(code: T): Promise<T> {
+        try {
+            const statusRequest = await axios.get(`http://localhost:3000/grades/${code}`);
+            const statusResponse = {status: statusRequest.status, response: statusRequest.data} as T;
+            return statusResponse;
         } catch (error: any) {
             return {status: error.response.status, message: error.response.statusText} as T;
         }
     }
 
-    async updateProductByOrder<T>(param: T, order: ProductByOrderPayload): Promise<T> {
+    async getStudentByCode<T>(code: T): Promise<T> {
         try {
-            const updateRequest = await axios.put(`http://localhost:7000/pedido/produto/${param}`, order);
-            return {status: updateRequest.status, message: updateRequest.data} as T;
+            const statusRequest = await axios.get(`http://localhost:3000/students/${code}`);
+            const statusResponse = {status: statusRequest.status, response: statusRequest.data} as T;
+            return statusResponse;
         } catch (error: any) {
             return {status: error.response.status, message: error.response.statusText} as T;
         }
     }
 
+    async createStudent<T>(student: StudentPayload): Promise<T> {
+        try {
+            const postRequest = await axios.post(`http://localhost:3000/students/create`, student);
+            return {status: postRequest.status, message: postRequest.data} as T;
+        } catch (error: any) {
+            console.log(error)
+            return {status: error.response.status, message: error.response.statusText} as T;
+        }
+    }
 }
 
 export { HomeService }

@@ -5,25 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/home.css">
-    <title>PlusPedidos</title>
+    <title>SchoolPlus</title>
 </head>
 <body>
     <header>
         <div id="menu">
-            <button id="pedidos">Pedidos</button>
             <button id="cadastros">Cadastros</button>
-            <button id="parametros">Parametros</button>
+            <button id="alunos">Alunos</button>
+            <button id="boletim">Boletins</button>
         </div>
     </header>
     <div id="container">
-        <div id="filters"></div>
-        <div id="content-page"></div>
-        <div id="details">
-            <div id="grid-details"></div>
+        <div id="content-page">
+            <div id="header-cadastro">
+                <h3>Cadastro de alunos</h3>
+            </div>
+            <div id="body-cadastro">
+                <input id="code-input" type="text" placeholder="Digite o código">
+                <input id="nome-input" type="text" placeholder="Digite o nome do aluno">
+                <input id="idade-input" type="text" placeholder="Digite a idade do aluno">
+                <input id="email-input" type="email" placeholder="Digite o email do aluno">
+            </div>
+            <div id="section-btn">
+                <button id="btn-cadastro">Salvar</button>
+            </div>
         </div>
     </div> 
 </body>
 <script type= "text/javascript" src="../dist/home.bundle.js"></script>
-<script type= "text/javascript" src="../dist/cadastros.bundle.js"></script>
-<script type= "text/javascript" src="../dist/filtros.bundle.js"></script>
 </html>

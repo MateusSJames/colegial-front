@@ -11,19 +11,74 @@
     height: 85vh;
     width: 100vw;
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #content-page {
-    height: 85vh;
-    width: 82vw;
+    height: 70vh;
+    width: 50vw;
+    border: 1px solid black;
     padding: 2vmax 1vmax 2vmax 1vmax;
     display: flex;
+    flex-direction: column;
+}
+
+#body-cadastro {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 70%;
+    padding: 3vmax 0;
+    justify-content: space-between;
+}
+
+#nome-input {
+    height: 5vh;
+    padding: 1vmax;
+}
+
+#idade-input {
+    height: 5vh;
+    width: 17vw;
+    padding: 1vmax;
+}
+
+#code-input {
+    height: 5vh;
+    width: 17vw;
+    padding: 1vmax;
+}
+
+#email-input {
+    height: 5vh;
+    padding: 1vmax;
 }
 
 header {
-    background-color: orange;
+    background-color: rgb(30, 159, 78);
     height: 15vh;
     padding: 2.5vmax 15vmax 2.5vmax 15vmax;
+}
+
+#section-btn {
+    width: 47vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+#btn-cadastro {
+    width: 10vw;
+    height: 7vh;
+    background-color: rgb(30, 159, 78);
+    border: 1px solid grey;
+    color: white;
+    font-weight: bold;
+}
+
+#btn-cadastro:hover {
+    cursor: pointer;
 }
 
 #menu {
@@ -33,538 +88,41 @@ header {
     justify-content: space-between;
 }
 
-#pedidos {
-    background-color: orange;
+#boletim {
+    background-color: rgb(30, 159, 78);
     border: 0;
     color: white;
     font-weight: bold;
     font-size: 1.5vmax;
+    text-decoration: underline;
 }
 
-#parametros {
-    background-color: orange;
+#alunos {
+    background-color: rgb(30, 159, 78);
     border: 0;
     color: white;
     font-weight: bold;
     font-size: 1.5vmax;
+    text-decoration: underline;
 }
 
 #cadastros {
-    background-color: orange;
+    background-color: rgb(30, 159, 78);
     border: 0;
     color: white;
     font-weight: bold;
     font-size: 1.5vmax;
+    text-decoration: underline;
 }
 
 #cadastros:hover {
     cursor: pointer;
 }
 
-#pedidos:hover {
+#boletim:hover {
     cursor: pointer;
 }
 
-#parametros:hover {
+#alunos:hover {
     cursor: pointer;
-}
-
-#filters {
-    padding: 5vmax 1vmax 5vmax 1vmax;
-    width: 18vw;
-    height: 85vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: white;
-    border: 1px solid rgb(148, 148, 148);
-    background-color: rgb(199, 198, 199);
-}
-
-#status-page {
-    background-color: white;
-    font-weight: bold;
-    border: 0;
-}
-
-#status-page:hover {
-    cursor: pointer;
-}
-
-h3[id^="filter-status"]{
-    color: black;
-    margin-left: 1vmax;
-}
-
-h3[id^="filter-status"]:hover{
-    cursor: pointer;
-}
-
-#filter-status-search {
-    background-color: rgb(199, 198, 199);
-    width: 7vw;
-    border: 0;
-    font-weight: bold;
-    font-size: 1.3vmax;
-}
-
-#filter-status-search:hover {
-    cursor: pointer;
-}
-
-div[id^="order"]{
-    margin: 1vmax;
-    padding: 1vmax;
-    color: black;
-    background-color: rgb(199, 198, 199);
-    border-radius: 20px;
-    width: 25vw;
-    height: 20vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-div[id^="order"]:hover {
-    cursor: pointer;
-}
-
-#row-ids {
-    display: flex;
-    justify-content: space-between;
-}
-
-#details {
-    /* position: absolute; */
-    width: 80vw;
-    height: 85vh;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: end;
-    padding-right: 2vmax;
-}
-
-#grid-details {
-    position: absolute;
-    visibility: hidden;
-    width: 84vw;
-    height: 80vh;
-    border: 1px solid black;
-    background-color: white;
-    overflow-y: auto;
-}
-
-#header-client {
-    background-color: rgb(199, 198, 199);
-    height: 23%;
-    display: flex;
-    padding: 1vmax;
-    justify-content: space-between;
-}
-
-#table-products {
-    padding: 1vmax;
-    width: 100%;
-}
-
-#table-products tr th{
-    border: 1px solid black;
-    text-align: start;
-    padding: 1vmax;
-}
-
-#dates-order {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-#drop-status {
-    height: 3vmax;
-}
-
-#exit-details {
-    padding: 0.5vmax 1vmax 0 0;
-    display: flex;
-    flex-direction: row;
-    background-color: rgb(199, 198, 199);
-    justify-content: end;
-}
-
-#exit-details h2:hover {
-    cursor: pointer;
-}
-
-#fixed-footer {
-    padding: 0 1vmax;
-    height: 17%;
-    width: 100%;
-    background-color: rgb(199, 198, 199);
-    position: absolute;
-    display: flex;
-    align-items: center;
-    bottom: 0;
-}
-
-#btn-update-status {
-    background-color: rgb(199, 198, 199);
-    border: 0;
-    margin-left: 1.5vmax;
-}
-
-#btn-update-status:hover {
-    cursor: pointer;
-}
-
-#alert-content {
-    border-radius: 20px;
-    width: 30vw;
-    height: 5vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    visibility: hidden;
-    color: black;
-}
-
-#row-solicitado {
-    display: flex;
-    justify-content: space-between;
-}
-
-span[id^='arrow-right']:hover {
-    cursor: pointer;
-}
-
-#btn-update-order {
-    background-color: grey;
-    color: white;
-    font-weight: bold;
-    border-radius: 20px;
-    width: 12vw;
-    height: 7vh;
-}
-
-#btn-update-order:hover {
-    cursor: pointer;
-}
-
-input[id^='input-atendida'] {
-    background-color: rgb(199, 198, 199);
-    margin-left: 1vmax;
-    height: 100%;
-    border: 0;
-    width: 5vw;
-    font-size: 1.2vmax;
-    font-weight: bold;
-}
-
-#value-product {
-    width: 5vw;
-}
-
-#row-solicitado {
-    width: 9vw;
-}
-
-#th-atendida {
-    width: 5vw;
-}
-
-#hd-solicitada {
-    width: 8vw;
-}
-
-#hd-atendida {
-    width: 5vw;
-}
-
-#hd-valor {
-    width: 10vw;
-}
-
-#filter-table:hover {
-    cursor: pointer;
-}
-
-#drop-filter {
-    width: 20vw;
-    height: 5vh;
-}
-
-#filters-prod-serv {
-    display: flex;
-    justify-content: space-between;
-    padding: 1vmax;
-}
-
-#input-filter {
-    width: 30vw;
-    height: 7vh;
-    border-radius: 20px;
-    padding: 1vmax;
-}
-
-#btn-filter-prod {
-    background-color: rgb(199, 198, 199);
-    width: 10vw;
-    height: 5vh;
-    font-weight: bold;
-    border-radius: 20px;
-    margin-left: 2vmax;
-}
-
-#btn-filter-prod:hover {
-    cursor: pointer;
-}
-
-#section-pages {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 1.2vmax;
-}
-
-#btn-back-page {
-    background-color: white;
-    border: 0;
-}
-
-#btn-next-page {
-    background-color: white;
-    border: 0;
-}
-
-#btn-back-page:hover {
-    cursor: pointer;
-}
-
-#btn-next-page:hover {
-    cursor: pointer;
-}
-
-#filters-orders-page {
-    width: 100%;
-    height: 10vh;
-    display: flex;
-    justify-content: space-between;
-}
-
-#drop-filter-order {
-    width: 20vw;
-    height: 5vh;
-    margin-top: 0.5vmax;
-}
-
-#drop-status-order {
-    width: 20vw;
-    height: 5vh;
-    margin-top: 0.5vmax;
-}
-
-#input-filter-order {
-    width: 22vw;
-    height: 5vh;
-    padding: 1vmax;
-    margin-top: 0.5vmax;
-}
-
-#btn-filter-order {
-    background-color: rgb(199, 198, 199);
-    width: 10vw;
-    height: 5vh;
-    font-weight: bold;
-    margin-top: 1.5vmax;
-    border-radius: 20px;
-    margin-left: 2vmax;
-}
-
-#btn-filter-order:hover {
-    cursor: pointer;
-}
-
-#table-orders {
-    padding: 1vmax;
-    width: 100%;
-}
-
-#table-orders tr th{
-    border: 1px solid black;
-    text-align: start;
-    padding: 1vmax;
-}
-
-#show-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#sect-status-header {
-    background-color: aquamarine;
-    width: 10vw;
-}
-
-#sect-input-header {
-    background-color: blue;
-    width: 30vw;
-}
-
-#section-filter-order {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 1vmax;
-}
-
-#sect-st-filter {
-    display: flex;
-    flex-direction: column;
-}
-
-#sect-input-filter {
-    display: flex;
-    flex-direction: column;
-}
-
-#section-sequence-shop {
-    display: flex;
-    width: 60vw;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#sequence-shop {
-    display: flex;
-    width: 50vw;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#sequence-shop-order {
-    font-weight: bold;
-    padding: 0 0.5vmax;
-}
-
-#save-sequence {
-    padding: 0.3vmax;
-    background-color: grey;
-    color: white;
-    font-weight: bold;
-    border: 1px solid black;
-}
-
-#save-sequence:hover {
-    cursor: pointer;
-}
-
-#status-sequence {
-    visibility: hidden;
-}
-
-button[id^="btn-show-details"]{
-    background-color: white;
-    border: 0;
-}
-
-button[id^="btn-show-details"]:hover{
-    cursor: pointer;
-}
-
-@media screen and (max-width: 920px) {
-
-    div[id^="order"]{
-        font-size: 1.5vmax;
-    }
-
-    #filters {
-        width: 25vw;
-        height: 100vh;
-    }
-
-    #content-page {
-        flex-wrap: wrap;
-        width: 100vw;
-    }
-
-    #details {
-        width: 10%;
-    }
-
-    #grid-details {
-        width: 78vw;
-    }
-
-    div[id^="order"]{
-        width: 30vw;
-    }
-}
-
-@media screen and (max-width: 720px) {
-
-    header {
-        padding-top: 5vmax;
-    }
-
-    #pedidos {
-        background-color: orange;
-        border: 0;
-        color: white;
-        font-weight: bold;
-        font-size: 2vmax;
-    }
-    
-    #parametros {
-        background-color: orange;
-        border: 0;
-        color: white;
-        font-weight: bold;
-        font-size: 2vmax;
-    }
-}
-
-@media screen and (max-width: 700px) {
-
-    div[id^="order"]{
-        width: 60vw;
-    }
-
-    #filters {
-        width: 35vw;
-    }
-}
-
-@media screen and (max-width: 490px) {
-
-    div[id^="order"]{
-        width: 60vw;
-    }
-
-    #content-page {
-        width: 100vw;
-        align-items: center;
-        justify-content: center;
-    }
-
-    header {
-        padding-left: 5vmax;
-        padding-right: 5vmax;
-    }
-
-    #filters {
-        display: none;
-    }
-
-    #grid-details {
-        width: 85vw;
-        height: 70vh;
-    }
-}
-
-@media screen and (max-width: 320px) {
-
-    header {
-        padding-left: 5vmax;
-        padding-right: 5vmax;
-    }
 }

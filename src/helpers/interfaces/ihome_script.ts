@@ -1,9 +1,7 @@
 interface IHomeScript {
-    getOrdersPendings<T>(param: T, name:T): Promise<T>
-    getClientByOrder<T>(param: T, order:T): Promise<T>
-    getProductsByOrder<T>(param: T, order: T): Promise<T>
-    updateStatusOrder<T>(param: T, order: Object): Promise<T>
-    updateProductByOrder<T>(param: T, order: Object): Promise<T>
-    getOrdersByFilter<T>(param:T, field:T, value: T, status:T): Promise<T>
-    updateOrder<T>(param:T, order:Object): Promise<T>
+    getStudents<T>(): Promise<T>
+    getStudentByGrade<T>(code: T): Promise<T>
+    getStudentByCode<T>(code: T): Promise<T>
+    createStudent<T>(order:Object): Promise<T>
+    saveGradesStudent<T>(order:Object): Promise<T>
 }

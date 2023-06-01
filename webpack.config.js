@@ -2,11 +2,9 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    index: './src/scripts/index.ts',
     home: './src/scripts/home.ts',
-    status: './src/scripts/settings/status.ts',
-    cadastros: './src/scripts/home.cadastro.ts',
-    filtros: './src/scripts/home.filters.ts'
+    boletim: './src/scripts/home.boletim.ts',
+    aluno: './src/scripts/home.aluno.ts',
   },
   module: {
     rules: [

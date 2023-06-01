@@ -2,53 +2,43 @@ import request from 'supertest'
 import {HomeService} from '../services/home_service'
 
 describe('Home', () => {
-    it('should return orders pendings', async () => {
+    
+    it('should return students', async () => {
         const homeService = new HomeService();
-        const response: any = await homeService.getOrdersPendings('pluspedidos', 'Solicitado')
+        const response: any = await homeService.getStudents()
+        expect(response.status).toEqual(200);
+    })
+    
+    it('should return student by code', async () => {
+        const homeService = new HomeService();
+        const response: any = await homeService.getStudentByCode(1453)
         expect(response.status).toEqual(200);
     })
 
-    it('should get client by order', async () => {
+    it('should return grades by student', async () => {
         const homeService = new HomeService();
-        const response: any = await homeService.getClientByOrder('pluspedidos', '1')
+        const response: any = await homeService.getStudentByGrade(1)
         expect(response.status).toEqual(200);
     })
-    it('should return all products by order', async () => {
+    it('should create student', async () => {
         const homeService = new HomeService();
-        const response: any = await homeService.getProductsByOrder('pluspedidos', '22')
-        expect(response.status).toEqual(200);
-    })
-    it('should update status order', async () => {
-        const settingsService = new HomeService();
-        const status = {
-            id_pedido: 24,
-            id_status: 2
+        const student = {
+            codigo: 5,
+            nome: "Augusto",
+            email: "augusto@gmail.com",
+            idade: 13
         }
-        const result: any = await settingsService.updateStatusOrder('pluspedidos', status);
+        const response: any = await homeService.createStudent(student)
+        expect(response.status).toEqual(201);
+    })
+    it('should submit grades for student', async () => {
+        const settingsService = new HomeService();
+        const grade = {
+            id_aluno: 5,
+            id_materia: 1,
+            nota: 7.2
+        }
+        const result: any = await settingsService.saveGradesStudent(grade);
         expect(result.status).toEqual(201)
-    })
-    it('should update product by order', async () => {
-        const settingsService = new HomeService();
-        const product = {
-            quantidade_atendida: 5,
-            id_pedido: 23,
-            ordem_prod_serv: 4
-        }
-        const result: any = await settingsService.updateProductByOrder('pluspedidos', product);
-        expect(result.status).toEqual(200)
-    })
-    it('should get order by filters', async () => {
-        const homeService = new HomeService();
-        const response: any = await homeService.getOrdersByFilter('pluspedidos', 'cliente', 'Mateus', 'todos')
-        expect(response.status).toEqual(200);
-    })
-    it('should update sequence shop by order', async () => {
-        const homeService = new HomeService();
-        const order = {
-            id: 24,
-            sequencia_shop: 123
-        }
-        const response: any = await homeService.updateOrder('pluspedidos', order);
-        expect(response.status).toEqual(200);
     })
 })

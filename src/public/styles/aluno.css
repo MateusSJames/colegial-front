@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@100;300;700&family=Montserrat:wght@100&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+#container {
+    height: 85vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#content-page {
+    height: 70vh;
+    width: 50vw;
+    border: 1px solid black;
+    padding: 2vmax 1vmax 2vmax 1vmax;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+header {
+    background-color: rgb(30, 159, 78);
+    height: 15vh;
+    padding: 2.5vmax 15vmax 2.5vmax 15vmax;
+}
+
+#menu {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#boletim {
+    background-color: rgb(30, 159, 78);
+    border: 0;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5vmax;
+    text-decoration: underline;
+}
+
+#alunos {
+    background-color: rgb(30, 159, 78);
+    border: 0;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5vmax;
+    text-decoration: underline;
+}
+
+#cadastros {
+    background-color: rgb(30, 159, 78);
+    border: 0;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5vmax;
+    text-decoration: underline;
+}
+
+#cadastros:hover {
+    cursor: pointer;
+}
+
+#boletim:hover {
+    cursor: pointer;
+}
+
+#alunos:hover {
+    cursor: pointer;
+}
+
+div[id^="student"] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1vmax;
+}
+
+#table-students tr th{
+    border: 1px solid rgb(154, 153, 153);
+    text-align: start;
+    padding: 1vmax;
+}
+
+#header-cadastro {
+    margin-bottom: 1vmax;
+}
